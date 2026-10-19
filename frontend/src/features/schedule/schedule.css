@@ -157,6 +157,7 @@
 /* Reutiliza .modal y lo pega al borde derecho, con todo el alto de la pantalla */
 .drawer {
   width: min(26rem, 100%);
+  max-width: 100%; /* el navegador limita el ancho de <dialog> por defecto */
   height: 100dvh;
   max-height: 100dvh;
   margin: 0 0 0 auto;
