@@ -1,7 +1,7 @@
 import { getIsoWeekNumber, getWeekDays, toDateKey } from '../../lib/dates.js'
 import { getBestStreak, getCurrentStreak, isScheduledOn } from './habitStats.js'
 
-const DAY_INITIALS = ['D', 'L', 'M', 'X', 'J', 'V', 'S'] // índice = getDay()
+const DAY_INITIALS = ['D', 'L', 'M', 'M', 'J', 'V', 'S'] // índice = getDay()
 
 function CheckIcon() {
   return (
@@ -14,11 +14,11 @@ function CheckIcon() {
 
 // Decide cómo se ve y si se puede clickear una celda (hábito × día).
 function getCellState({ habit, date, dateKey, todayKey, isDone }) {
+  // Solo se bloquea el futuro: cualquier día pasado se puede registrar.
   if (dateKey > todayKey) return { status: 'future', disabled: true }
-  // Antes de crear el hábito no hay nada que registrar (y no cuenta en las métricas).
-  if (dateKey < habit.createdAt) return { status: 'inactive', disabled: true }
   if (isDone) return { status: 'done', disabled: false }
-  if (!isScheduledOn(habit, date)) return { status: 'off', disabled: false }
+  // Días que no le tocan, o anteriores a crear el hábito: atenuados pero marcables.
+  if (!isScheduledOn(habit, date) || dateKey < habit.createdAt) return { status: 'off', disabled: false }
   return { status: 'pending', disabled: false }
 }
 

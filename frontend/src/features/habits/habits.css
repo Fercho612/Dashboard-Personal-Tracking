@@ -236,8 +236,7 @@
   opacity: 0.4;
 }
 
-.matrix__cell--future,
-.matrix__cell--inactive {
+.matrix__cell--future {
   border-style: solid;
   border-color: transparent;
   opacity: 0.35;

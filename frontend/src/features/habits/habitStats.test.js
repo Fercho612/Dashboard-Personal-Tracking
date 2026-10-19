@@ -69,6 +69,12 @@ describe('getCurrentStreak', () => {
     expect(getCurrentStreak(habit, completions, TODAY)).toBe(2)
   })
 
+  it('cuenta días marcados de forma retroactiva, antes de crear el hábito', () => {
+    const habit = dailyHabit({ createdAt: '2026-10-21' })
+    const completions = { daily: ['2026-10-19', '2026-10-20', '2026-10-21'] }
+    expect(getCurrentStreak(habit, completions, TODAY)).toBe(3)
+  })
+
   it('sin registros la racha es 0', () => {
     expect(getCurrentStreak(dailyHabit(), {}, TODAY)).toBe(0)
   })
@@ -112,6 +118,13 @@ describe('getConsistency', () => {
     // Días programados: 18, 19, 20 (hoy 21 pendiente no cuenta) → 2 de 3 = 67%
     const completions = { daily: ['2026-10-18', '2026-10-20'] }
     expect(getConsistency([habit], completions, TODAY)).toBe(67)
+  })
+
+  it('un registro retroactivo adelanta el inicio: los días sin marcar desde ahí cuentan', () => {
+    const habit = dailyHabit({ createdAt: '2026-10-21' })
+    // Empieza el 18 por el registro retroactivo → 18, 19, 20 programados; hecho solo el 18 → 33%
+    const completions = { daily: ['2026-10-18'] }
+    expect(getConsistency([habit], completions, TODAY)).toBe(33)
   })
 
   it('devuelve null si no hubo nada programado', () => {

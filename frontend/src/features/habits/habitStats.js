@@ -13,16 +13,28 @@ function isDone(completions, habitId, dateKey) {
   return (completions[habitId] ?? []).includes(dateKey)
 }
 
-// Hábitos que "cuentan" en una fecha: ya existían y les toca ese día.
-function getScheduledHabits(habits, date) {
+/**
+ * Día desde el que el hábito "cuenta" en las métricas: su fecha de creación, o un día
+ * anterior si el usuario registró ese día de forma retroactiva.
+ * Las completions se guardan ordenadas, así que la primera es la más antigua.
+ */
+export function getStartKey(habit, completions) {
+  const firstDone = completions[habit.id]?.[0]
+  return firstDone && firstDone < habit.createdAt ? firstDone : habit.createdAt
+}
+
+// Hábitos que "cuentan" en una fecha: ya habían empezado y les toca ese día.
+function getScheduledHabits(habits, completions, date) {
   const dateKey = toDateKey(date)
-  return habits.filter((habit) => habit.createdAt <= dateKey && isScheduledOn(habit, date))
+  return habits.filter(
+    (habit) => getStartKey(habit, completions) <= dateKey && isScheduledOn(habit, date),
+  )
 }
 
 // Cumplimiento de hoy: cuántos de los hábitos que tocan hoy ya están hechos.
 export function getTodayProgress(habits, completions, today) {
   const todayKey = toDateKey(today)
-  const scheduled = getScheduledHabits(habits, today)
+  const scheduled = getScheduledHabits(habits, completions, today)
   const done = scheduled.filter((habit) => isDone(completions, habit.id, todayKey)).length
   return { done, total: scheduled.length }
 }
@@ -33,6 +45,7 @@ export function getTodayProgress(habits, completions, today) {
  * Si hoy le toca y todavía no está hecho, no se corta: hoy "aún no terminó".
  */
 export function getCurrentStreak(habit, completions, today) {
+  const startKey = getStartKey(habit, completions)
   let streak = 0
   let date = today
 
@@ -40,7 +53,7 @@ export function getCurrentStreak(habit, completions, today) {
     date = addDays(today, -1)
   }
 
-  while (toDateKey(date) >= habit.createdAt) {
+  while (toDateKey(date) >= startKey) {
     if (isScheduledOn(habit, date)) {
       if (!isDone(completions, habit.id, toDateKey(date))) break
       streak++
@@ -55,7 +68,7 @@ export function getBestStreak(habit, completions, today) {
   let best = 0
   let run = 0
 
-  for (let date = fromDateKey(habit.createdAt); date <= today; date = addDays(date, 1)) {
+  for (let date = fromDateKey(getStartKey(habit, completions)); date <= today; date = addDays(date, 1)) {
     if (!isScheduledOn(habit, date)) continue
     if (isDone(completions, habit.id, toDateKey(date))) {
       run++
@@ -77,15 +90,15 @@ export function getGlobalStreak(habits, completions, today) {
 
   const isDayComplete = (date) => {
     const dateKey = toDateKey(date)
-    return getScheduledHabits(habits, date).every((habit) => isDone(completions, habit.id, dateKey))
+    return getScheduledHabits(habits, completions, date).every((habit) => isDone(completions, habit.id, dateKey))
   }
 
-  const firstDay = habits.map((habit) => habit.createdAt).sort()[0]
+  const firstDay = habits.map((habit) => getStartKey(habit, completions)).sort()[0]
   let streak = 0
   let date = isDayComplete(today) ? today : addDays(today, -1)
 
   while (toDateKey(date) >= firstDay) {
-    if (getScheduledHabits(habits, date).length > 0) {
+    if (getScheduledHabits(habits, completions, date).length > 0) {
       if (!isDayComplete(date)) break
       streak++
     }
@@ -108,7 +121,7 @@ export function getConsistency(habits, completions, today, windowDays = 30) {
     const date = addDays(today, -offset)
     const dateKey = toDateKey(date)
 
-    for (const habit of getScheduledHabits(habits, date)) {
+    for (const habit of getScheduledHabits(habits, completions, date)) {
       const habitDone = isDone(completions, habit.id, dateKey)
       if (dateKey === todayKey && !habitDone) continue
       scheduled++
