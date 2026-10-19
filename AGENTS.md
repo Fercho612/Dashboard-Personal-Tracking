@@ -76,6 +76,7 @@ Cualquier tecnología fuera de esta tabla requiere aprobación explícita del du
 ```
 /
 ├── AGENTS.md              ← este archivo
+|-- MEMORY.md              ← Memoria del Proyecto
 ├── README.md              ← descripción del proyecto y cómo correrlo
 ├── docs/                  ← notas de aprendizaje, decisiones (ADR), bitácora
 ├── frontend/              ← React + Vite (HTML/CSS/JS a mano)
@@ -124,6 +125,15 @@ Una tarea está terminada cuando:
 - [ ] Frontend compila sin errores y backend levanta sin traceback.
 - [ ] Hay un test o una verificación manual documentada del cambio.
 - [ ] El dueño entiende qué se hizo y por qué.
+
+---
+
+## 9. Memoria
+- Al empezar, lee `MEMORY.md` para conocer el estado del proyecto y las decisiones tomadas.
+- Al terminar una tarea, actualízalo: estado actual, decisiones importantes (con su porqué) y errores a evitar.
+- Mantenlo breve (máximo ~50 líneas): resume o elimina lo que ya no aporte.
+- Si algo se convierte en una regla permanente, propón moverlo a `AGENTS.md` en lugar de dejarlo en la memoria.
+- No guardes nunca datos sensibles (claves, tokens, datos personales). 
 
 ---
 
