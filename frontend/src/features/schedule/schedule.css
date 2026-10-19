@@ -151,3 +151,97 @@
 .block--compact .block__time {
   display: none;
 }
+
+/* ---------- Drawer (panel lateral) ---------- */
+
+/* Reutiliza .modal y lo pega al borde derecho, con todo el alto de la pantalla */
+.drawer {
+  width: min(26rem, 100%);
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0 0 0 auto;
+  border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+  animation: drawer-in 200ms ease-out;
+}
+
+@keyframes drawer-in {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+.drawer__body {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Empuja las acciones al fondo del panel */
+.drawer__actions {
+  margin-top: auto;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+/* ---------- Opciones de categoría (radios con punto de color) ---------- */
+
+.category-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.category-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius);
+  background: var(--color-surface-1);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.category-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.category-option.is-active {
+  border-color: var(--cat);
+  background: color-mix(in srgb, var(--cat) 14%, var(--color-surface-1));
+}
+
+.category-option:has(input:focus-visible) {
+  outline: 2px solid var(--color-primary);
+}
+
+.category-dot {
+  flex-shrink: 0;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: var(--radius-full);
+  background: var(--cat);
+}
+
+@media (max-width: 560px) {
+  .drawer {
+    border-radius: 0;
+  }
+}

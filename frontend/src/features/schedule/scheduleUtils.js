@@ -53,6 +53,7 @@ export function findOverlap(candidate, blocks) {
 // Valida un bloque antes de guardarlo. Devuelve el mensaje de error o null si está bien.
 export function validateBlock(candidate, blocks, settings) {
   if (!candidate.title.trim()) return 'El título es obligatorio.'
+  if (!candidate.categoryId) return 'Elige una categoría.'
   if (candidate.start >= candidate.end) return 'La hora de fin debe ser posterior a la de inicio.'
   if (candidate.start < settings.dayStart || candidate.end > settings.dayEnd) {
     return `El bloque debe estar entre ${toTimeLabel(settings.dayStart)} y ${toTimeLabel(settings.dayEnd)}.`
