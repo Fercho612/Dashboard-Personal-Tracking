@@ -126,6 +126,9 @@ frontend/
   validar el nombre vacío, borrar un hábito, ir a la semana anterior y recargar la página.
 - Capturas revisadas a 1400px y 400px de ancho.
 
-### Decisión tomada durante la implementación
-- Los días **anteriores a `createdAt`** tampoco se pueden marcar en la matriz. Las métricas
-  los ignoran, así que permitir marcarlos sería confuso.
+### Cambios tras la revisión del dueño
+- **Registro retroactivo:** cualquier día pasado se puede marcar, incluso los anteriores
+  a `createdAt`. Solo el futuro queda bloqueado. Si se marca un día anterior a la creación,
+  el hábito empieza a contar en las métricas desde ese día (`getStartKey` en `habitStats.js`).
+- Miércoles se muestra como **M**, no como X. En el selector de días del modal, cada botón
+  lleva el nombre completo del día (`title`/`aria-label`) para distinguir los dos "M".
