@@ -3,6 +3,7 @@ import { addDays, startOfWeek, toDateKey } from '../../lib/dates.js'
 import { useHabits } from './useHabits.js'
 import WeeklyMatrix from './WeeklyMatrix.jsx'
 import HabitFormModal from './HabitFormModal.jsx'
+import TodaySummary from './TodaySummary.jsx'
 import './habits.css'
 
 export default function HabitsPage() {
@@ -57,17 +58,21 @@ export default function HabitsPage() {
           </button>
         </section>
       ) : (
-        <WeeklyMatrix
-          habits={habits}
-          completions={completions}
-          weekStart={weekStart}
-          today={today}
-          onToggle={toggleCompletion}
-          onPrevWeek={() => setWeekStart((current) => addDays(current, -7))}
-          onNextWeek={() => setWeekStart((current) => addDays(current, 7))}
-          onGoToToday={() => setWeekStart(startOfWeek(today))}
-          onEdit={(habit) => setModal({ habit })}
-        />
+        // <> … </> es un Fragment: agrupa elementos sin agregar un <div> extra al DOM.
+        <>
+          <TodaySummary habits={habits} completions={completions} today={today} />
+          <WeeklyMatrix
+            habits={habits}
+            completions={completions}
+            weekStart={weekStart}
+            today={today}
+            onToggle={toggleCompletion}
+            onPrevWeek={() => setWeekStart((current) => addDays(current, -7))}
+            onNextWeek={() => setWeekStart((current) => addDays(current, 7))}
+            onGoToToday={() => setWeekStart(startOfWeek(today))}
+            onEdit={(habit) => setModal({ habit })}
+          />
+        </>
       )}
 
       {/* Renderizado condicional: el modal solo existe en el DOM mientras está abierto */}

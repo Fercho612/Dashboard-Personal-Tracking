@@ -1,5 +1,5 @@
 import { getIsoWeekNumber, getWeekDays, toDateKey } from '../../lib/dates.js'
-import { isScheduledOn } from './habitStats.js'
+import { getBestStreak, getCurrentStreak, isScheduledOn } from './habitStats.js'
 
 const DAY_INITIALS = ['D', 'L', 'M', 'X', 'J', 'V', 'S'] // índice = getDay()
 
@@ -77,6 +77,7 @@ export default function WeeklyMatrix({
                   </th>
                 )
               })}
+              <th scope="col" className="matrix__streak-col">Racha</th>
             </tr>
           </thead>
           <tbody>
@@ -109,6 +110,12 @@ export default function WeeklyMatrix({
                       </td>
                     )
                   })}
+                  <td className="matrix__streak-col">
+                    <strong>{getCurrentStreak(habit, completions, today)}</strong>
+                    <span className="matrix__streak-best">
+                      récord {getBestStreak(habit, completions, today)}
+                    </span>
+                  </td>
                 </tr>
               )
             })}

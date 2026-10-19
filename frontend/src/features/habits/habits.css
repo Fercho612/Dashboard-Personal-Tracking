@@ -420,3 +420,145 @@
   background: var(--color-primary);
   color: #fff;
 }
+
+/* ---------- Resumen del día y métricas ---------- */
+
+.summary {
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.summary__today {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.summary__text {
+  margin: var(--space-xs) 0 0;
+  color: var(--text-medium);
+}
+
+.summary__ring {
+  position: relative;
+  flex-shrink: 0;
+  width: 6rem;
+  height: 6rem;
+}
+
+.ring {
+  width: 100%;
+  height: 100%;
+  /* El trazo de un círculo SVG empieza a las 3 en punto: lo giramos para que arranque arriba */
+  transform: rotate(-90deg);
+}
+
+.ring circle {
+  fill: none;
+  stroke-width: 8;
+}
+
+.ring__track {
+  stroke: rgba(255, 255, 255, 0.06);
+}
+
+.ring__value {
+  stroke: var(--color-success);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 400ms ease-out;
+}
+
+.summary__ring-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.summary__ring-label strong {
+  font-size: 1.375rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+.summary__ring-label span,
+.stat__label {
+  color: var(--text-medium);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-md) var(--space-lg);
+}
+
+.stat__value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat__value--primary {
+  color: var(--color-primary-soft);
+}
+
+.stat__value--success {
+  color: var(--color-success-soft);
+}
+
+.stat__hint {
+  overflow: hidden;
+  color: var(--text-subtle);
+  font-size: 0.8125rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Columna de racha por hábito en la matriz */
+.matrix__table .matrix__streak-col {
+  padding-left: var(--space-md);
+  text-align: right;
+  white-space: nowrap;
+}
+
+td.matrix__streak-col strong {
+  color: var(--color-success-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.matrix__streak-best {
+  display: block;
+  color: var(--text-subtle);
+  font-size: 0.75rem;
+}
+
+@media (max-width: 1024px) {
+  .summary {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .summary__today {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .summary {
+    grid-template-columns: 1fr;
+  }
+
+  .page-heading__title {
+    font-size: 1.5rem;
+  }
+}
