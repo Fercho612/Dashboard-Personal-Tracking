@@ -1,12 +1,15 @@
 import ScheduleBlock from './ScheduleBlock.jsx'
-import { DAY_SHORT, SLOT_MINUTES, WEEK_ORDER, toTimeLabel } from './scheduleUtils.js'
+import {
+  DAY_SHORT,
+  HOUR_HEIGHT,
+  PX_PER_MINUTE,
+  SLOT_MINUTES,
+  WEEK_ORDER,
+  resizeBlock,
+  toTimeLabel,
+} from './scheduleUtils.js'
 
-// Alto de una hora en la grilla. JS lo necesita para traducir píxeles ↔ minutos
-// (clic en un hueco, redimensionado) y CSS lo recibe como variable.
-export const HOUR_HEIGHT = 56
-export const PX_PER_MINUTE = HOUR_HEIGHT / 60
-
-export default function WeekGrid({ blocks, categories, settings, onBlockClick, onSlotClick }) {
+export default function WeekGrid({ blocks, categories, settings, onBlockClick, onSlotClick, onBlockResize }) {
   const { dayStart, dayEnd } = settings
   const todayIndex = new Date().getDay()
 
@@ -63,6 +66,9 @@ export default function WeekGrid({ blocks, categories, settings, onBlockClick, o
                   category={categoryById[block.categoryId]}
                   dayStart={dayStart}
                   onClick={onBlockClick}
+                  // Los límites dependen de los demás bloques y de la franja: los calcula la grilla.
+                  getResized={(edge, minutes) => resizeBlock(block, edge, minutes, blocks, settings)}
+                  onResizeEnd={onBlockResize}
                 />
               ))}
           </div>

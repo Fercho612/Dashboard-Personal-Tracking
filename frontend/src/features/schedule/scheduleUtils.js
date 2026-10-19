@@ -4,6 +4,11 @@
 export const SLOT_MINUTES = 15 // granularidad de la grilla y del redimensionado
 export const MIN_DURATION = 15 // un bloque dura al menos esto
 
+// Alto de una hora en la grilla. JS lo necesita para traducir píxeles ↔ minutos
+// (clic en un hueco, redimensionado) y CSS lo recibe como variable.
+export const HOUR_HEIGHT = 56
+export const PX_PER_MINUTE = HOUR_HEIGHT / 60
+
 // Orden de las columnas (lunes primero) usando la numeración de getDay(): 0 = domingo.
 export const WEEK_ORDER = [1, 2, 3, 4, 5, 6, 0]
 export const DAY_SHORT = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb']

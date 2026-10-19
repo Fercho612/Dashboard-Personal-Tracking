@@ -63,6 +63,7 @@ export default function SchedulePage() {
           settings={settings}
           onBlockClick={(block) => setDrawer({ block })}
           onSlotClick={openCreate}
+          onBlockResize={(block, { start, end }) => updateBlock(block.id, { start, end })}
         />
       </section>
 

@@ -245,3 +245,56 @@
     border-radius: 0;
   }
 }
+
+/* ---------- Manijas de redimensionado ---------- */
+
+.block__handle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  height: 8px;
+  cursor: ns-resize;
+  touch-action: none; /* en pantallas táctiles, arrastrar la manija no hace scroll */
+}
+
+.block__handle--start {
+  top: 0;
+}
+
+.block__handle--end {
+  bottom: 0;
+}
+
+/* Una rayita guía que aparece al pasar el mouse por el bloque */
+.block__handle::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 1.5rem;
+  height: 3px;
+  border-radius: var(--radius-full);
+  background: var(--cat);
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: opacity 150ms;
+}
+
+.block__handle--start::after {
+  top: 2px;
+}
+
+.block__handle--end::after {
+  bottom: 2px;
+}
+
+.block:hover .block__handle::after,
+.block--resizing .block__handle::after {
+  opacity: 1;
+}
+
+.block--resizing {
+  z-index: 2;
+  box-shadow: var(--shadow-float);
+  outline: 1px solid var(--cat);
+}
