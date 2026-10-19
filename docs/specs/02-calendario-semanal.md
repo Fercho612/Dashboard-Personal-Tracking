@@ -1,6 +1,6 @@
 # SPEC 02 — Calendario semanal (bloques de tiempo)
 
-> Estado: **aprobada (v2)**, en implementación
+> Estado: **aprobada (v2) e implementada** (pendiente de revisión del dueño)
 > Rama: `feature/calendario`
 > Referencia visual: `.design-reference/.../calendario_semanal_y_bloques_de_tareas/` + `serene_pulse/DESIGN.md`
 > Spec redactada con asistencia de IA (Claude) a partir de las respuestas del dueño.
@@ -137,18 +137,18 @@ frontend/src/
 
 ## 6. Criterios de aceptación
 
-- [ ] `npm run build` y `npm test` en verde, y los tests de hábitos siguen pasando.
-- [ ] Puedo ir de Hábitos a Calendario y volver desde la sidebar.
-- [ ] Puedo crear, editar y borrar bloques; al recargar la página siguen ahí.
-- [ ] Clic en un hueco vacío abre el panel con el día y la hora precargados.
-- [ ] No se puede guardar un bloque que se superpone; el error dice con cuál choca.
-- [ ] Al redimensionar, el bloque ajusta en saltos de 15 min, no invade otro bloque ni sale de
+- [x] `npm run build` y `npm test` en verde, y los tests de hábitos siguen pasando.
+- [x] Puedo ir de Hábitos a Calendario y volver desde la sidebar.
+- [x] Puedo crear, editar y borrar bloques; al recargar la página siguen ahí.
+- [x] Clic en un hueco vacío abre el panel con el día y la hora precargados.
+- [x] No se puede guardar un bloque que se superpone; el error dice con cuál choca.
+- [x] Al redimensionar, el bloque ajusta en saltos de 15 min, no invade otro bloque ni sale de
       la franja, y Esc cancela el arrastre.
-- [ ] Puedo crear, renombrar, recolorear y borrar categorías; no puedo borrar una que tiene bloques.
-- [ ] Puedo cambiar la franja horaria; si deja bloques afuera, el cambio se rechaza y explica por qué.
-- [ ] Los filtros ocultan y muestran categorías; el resumen de horas no cambia con el filtro.
-- [ ] A 400px de ancho la grilla hace scroll horizontal y el drawer ocupa toda la pantalla.
-- [ ] Tests de `scheduleUtils`: conversión de horas, solapamiento (incluido el caso de bloques
+- [x] Puedo crear, renombrar, recolorear y borrar categorías; no puedo borrar una que tiene bloques.
+- [x] Puedo cambiar la franja horaria; si deja bloques afuera, el cambio se rechaza y explica por qué.
+- [x] Los filtros ocultan y muestran categorías; el resumen de horas no cambia con el filtro.
+- [x] A 400px de ancho la grilla hace scroll horizontal y el drawer ocupa toda la pantalla.
+- [x] Tests de `scheduleUtils`: conversión de horas, solapamiento (incluido el caso de bloques
       contiguos y el de edición), límites de redimensionado, bloques fuera de franja y suma
       de horas por categoría.
 
@@ -164,3 +164,26 @@ frontend/src/
 8. `feat: franja horaria configurable`
 9. `feat: resumen de horas por categoría`
 10. `test: pruebas de utilidades de horario, solapamiento y redimensionado`
+
+## 8. Verificación realizada
+
+- `npm run build` sin errores y `npm test` con 48 tests en verde (27 nuevos de `scheduleUtils`).
+- Pruebas automatizadas en Edge headless con datos de ejemplo:
+  - Bloques: clic en un hueco (precarga día/hora y recorta el fin si choca), validaciones,
+    error de solapamiento, editar, borrar y cerrar con Esc.
+  - Redimensionado: freno contra el vecino, freno en la franja, ajuste a 15', duración mínima y Esc.
+  - Categorías y filtros: chips combinables, nombre duplicado, borrado bloqueado con bloques,
+    renombrar/recolorear (los bloques cambian de color) y borrado de una vacía.
+  - Franja: rechazo con bloques afuera, franja inválida, cambio a 06:00–23:00.
+- Capturas revisadas a 1300px y 400px de ancho.
+
+### Decisiones tomadas durante la implementación
+- **Los estilos globales se importan en `main.jsx`**, antes que cualquier página. Antes se
+  importaban en `App.jsx` después de las páginas y `components.css` pisaba reglas de
+  `schedule.css` (commit `fix:` aparte).
+- **El filtro solo cambia lo que se dibuja.** Solapamiento y redimensionado se calculan con
+  todos los bloques, para que no se pueda invadir uno oculto.
+- **Contraste de la paleta:** el validador de color marca pares difíciles de distinguir:
+  índigo/violeta para daltonismo protán y rosa/coral incluso con visión normal. Por eso el color
+  nunca es la única pista: los bloques muestran su título, y los chips y la leyenda del resumen,
+  el nombre de la categoría. Queda pendiente decidir si se ajustan esos tonos.
