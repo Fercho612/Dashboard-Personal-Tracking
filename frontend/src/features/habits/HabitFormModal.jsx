@@ -2,13 +2,13 @@ import { useEffect, useRef, useState } from 'react'
 
 // Orden visual lunes → domingo; `value` es el número de getDay() (0 = domingo).
 const WEEK_DAYS = [
-  { value: 1, label: 'L' },
-  { value: 2, label: 'M' },
-  { value: 3, label: 'X' },
-  { value: 4, label: 'J' },
-  { value: 5, label: 'V' },
-  { value: 6, label: 'S' },
-  { value: 0, label: 'D' },
+  { value: 1, label: 'L', name: 'Lunes' },
+  { value: 2, label: 'M', name: 'Martes' },
+  { value: 3, label: 'M', name: 'Miércoles' },
+  { value: 4, label: 'J', name: 'Jueves' },
+  { value: 5, label: 'V', name: 'Viernes' },
+  { value: 6, label: 'S', name: 'Sábado' },
+  { value: 0, label: 'D', name: 'Domingo' },
 ]
 
 const NAME_MAX = 60
@@ -145,6 +145,8 @@ export default function HabitFormModal({ habit, onSave, onDelete, onClose }) {
                   type="button"
                   className={`day-picker__day ${selectedDays.includes(day.value) ? 'is-selected' : ''}`}
                   aria-pressed={selectedDays.includes(day.value)}
+                  aria-label={day.name}
+                  title={day.name}
                   onClick={() => toggleDay(day.value)}
                 >
                   {day.label}
