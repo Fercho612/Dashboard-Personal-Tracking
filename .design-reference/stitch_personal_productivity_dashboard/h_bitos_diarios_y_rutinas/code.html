@@ -1,0 +1,660 @@
+<!DOCTYPE html><html class="dark" lang="es" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"secondary-container":"#00a572","on-background":"#e2e2eb","surface-container-highest":"#33343b","on-surface":"#e2e2eb","on-tertiary-container":"#5b0017","on-primary-container":"#0d0096","surface-dim":"#111319","inverse-on-surface":"#2e3037","inverse-primary":"#494bd6","primary-container":"#8083ff","surface-container-lowest":"#0c0e14","on-tertiary-fixed":"#40000d","on-surface-variant":"#c7c4d7","primary-fixed":"#e1e0ff","on-primary":"#1000a9","on-tertiary":"#67001b","on-secondary":"#003824","surface":"#111319","on-error":"#690005","secondary-fixed-dim":"#4edea3","tertiary-fixed":"#ffdadb","error":"#ffb4ab","secondary":"#4edea3","surface-bright":"#373940","error-container":"#93000a","background":"#111319","surface-tint":"#c0c1ff","primary":"#c0c1ff","outline-variant":"#464554","tertiary":"#ffb2b7","outline":"#908fa0","tertiary-container":"#ff516a","on-primary-fixed":"#07006c","on-secondary-fixed-variant":"#005236","inverse-surface":"#e2e2eb","secondary-fixed":"#6ffbbe","tertiary-fixed-dim":"#ffb2b7","on-tertiary-fixed-variant":"#92002a","surface-container-high":"#282a30","surface-container":"#1e1f26","on-primary-fixed-variant":"#2f2ebe","surface-variant":"#33343b","surface-container-low":"#191b22","on-secondary-container":"#00311f","on-secondary-fixed":"#002113","primary-fixed-dim":"#c0c1ff","on-error-container":"#ffdad6"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"gutter-mobile":"0.75rem","space-sm":"0.5rem","margin-desktop":"3rem","space-md":"1rem",margin:"1rem","space-xs":"0.25rem","space-xl":"2.25rem",gutter:"1.25rem","gutter-desktop":"1.5rem","space-lg":"1.5rem","margin-tablet":"2rem"},fontFamily:{"body-lg":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"headline-xl":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"headline-xl-mobile":["Plus Jakarta Sans"],"metric-numeral":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"]},fontSize:{"body-lg":["1.125rem",{lineHeight:"1.75rem",letterSpacing:"-0.005em",fontWeight:"400"}],"label-md":["0.875rem",{lineHeight:"1.25rem",letterSpacing:"0.01em",fontWeight:"600"}],"headline-xl":["2rem",{lineHeight:"2.5rem",letterSpacing:"-0.02em",fontWeight:"600"}],"body-sm":["0.8125rem",{lineHeight:"1.25rem",letterSpacing:"0.005em",fontWeight:"400"}],"display-lg-mobile":["2.25rem",{lineHeight:"2.75rem",letterSpacing:"-0.025em",fontWeight:"700"}],"headline-xl-mobile":["1.5rem",{lineHeight:"2rem",letterSpacing:"-0.015em",fontWeight:"600"}],"metric-numeral":["2.25rem",{lineHeight:"2.5rem",letterSpacing:"-0.03em",fontWeight:"700"}],"label-sm":["0.75rem",{lineHeight:"1rem",letterSpacing:"0.04em",fontWeight:"600"}],"display-lg":["3.5rem",{lineHeight:"4.25rem",letterSpacing:"-0.03em",fontWeight:"700"}],"headline-md":["1.25rem",{lineHeight:"1.75rem",letterSpacing:"-0.01em",fontWeight:"600"}],"body-md":["0.9375rem",{lineHeight:"1.5rem",letterSpacing:"0",fontWeight:"400"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-low z-50 flex flex-col justify-between py-space-lg px-space-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col gap-space-lg"><div class="flex items-center gap-space-sm px-space-xs"><img alt="Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyi_CEAeci3yZE6upL3NlUAGDxdBvuSxyuodi6EUynNR7XtGB8fjBCJfuQ0O1RcuRve7B4kDds5DbVOdGIZG_w2juNqLl_DuFuh_kM3OR-zZ21A4qPV2hBeaMRITAPv_9KkHgmLFVRdTNE5ogGdfO7w_JDvAPnnElzdpO2KCnVai_KChPwH02jTKhliwsOYS5mYCe0VGrcMSlU2kAQ3SGeXAH197LLOhgbo2YnRZUCicWJ3dUQPieC"><div class="flex flex-col"><span class="font-headline-md text-headline-md font-bold tracking-tight text-on-surface">FocusPulse</span><span class="font-label-sm text-label-sm text-on-surface-variant">Mindful Momentum</span></div></div><button class="w-full flex items-center justify-center gap-space-xs py-space-sm px-space-md bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-sm hover:bg-primary-container hover:text-on-primary-container transition-colors"><span class="material-symbols-outlined text-[1.125rem]">add</span><span class="">Nuevo registro</span></button><nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-label-md rounded-xl shadow-[0_0_12px_rgba(192,193,255,0.2)]"><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-colors bg-primary-container text-on-primary-container font-label-md rounded-xl shadow-[0_0_12px_rgba(192,193,255,0.2)]" data-path="habitos" href="#"><span class="material-symbols-outlined text-[1.25rem]">check_circle</span><span class="">Hábitos</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="calendario-semanal" href="#"><span class="material-symbols-outlined text-[1.25rem]">calendar_month</span><span class="">Calendario Semanal</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="lista-de-tareas" href="#"><span class="material-symbols-outlined text-[1.25rem]">format_list_bulleted</span><span class="">Lista de Tareas</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="estadisticas" href="#"><span class="material-symbols-outlined text-[1.25rem]">insights</span><span class="">Estadísticas</span></a></nav></div><div class="flex flex-col gap-space-sm pt-space-md bg-surface-container-low"><div class="flex items-center justify-between px-space-xs py-space-xs rounded-xl bg-surface-container"><a class="flex items-center gap-space-sm p-space-xs rounded-lg hover:bg-surface-container-high hover:text-on-surface transition-colors flex-1" data-path="perfil-y-ajustes" href="#"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd-mpdc6JVBYvuABah-ejnQB2AABrDVssbQ_zsyCZA87yKHu5sF2DpG9Jzye0dQAcLJbliU40hAjCczDns_Nz-GZzCqGZo8X5tPgcQ776Bym5se4qjEZSf3HmLX_3n48aef-HQ4GkXy3xc_Qh9-k55eI1MysQzBoKWTRmOlCoPGYFh5Ey_USnfv1HXmlb1zHtMYaDB7Sd0EhvPmyUI_y3NMCOuZVQ1M2mTVMiIPDlGbuN1EQSgZxOg"><div class="flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface leading-tight">Alex Rivera</span><span class="font-label-sm text-label-sm text-secondary leading-tight flex items-center gap-1"><span class="material-symbols-outlined text-[0.875rem]">local_fire_department</span>14 días</span></div></a><div class="flex items-center gap-space-xs pr-space-xs"><button aria-label="Cambiar tema" class="p-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[1.125rem]">dark_mode</span></button><a aria-label="Configuración" class="p-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="perfil-y-ajustes" href="#"><span class="material-symbols-outlined text-[1.125rem]">settings</span></a></div></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/80 backdrop-blur-xl z-40 flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container text-on-surface-variant w-72"><span class="material-symbols-outlined text-[1.125rem]">search</span><span class="font-body-sm text-body-sm text-outline">Buscar tareas, rutinas...</span></div><div class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md"><span class="material-symbols-outlined text-[1.125rem] text-primary">calendar_today</span><span class="">Miércoles, 24 Octubre</span></div></div><div class="flex items-center gap-space-md"><nav class="hidden lg:flex items-center gap-space-lg" data-active-classes="text-primary font-label-md"></nav><div class="flex items-center gap-space-sm pl-space-sm"><button aria-label="Notificaciones" class="relative p-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[1.25rem]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-secondary"></span></button><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd-mpdc6JVBYvuABah-ejnQB2AABrDVssbQ_zsyCZA87yKHu5sF2DpG9Jzye0dQAcLJbliU40hAjCczDns_Nz-GZzCqGZo8X5tPgcQ776Bym5se4qjEZSf3HmLX_3n48aef-HQ4GkXy3xc_Qh9-k55eI1MysQzBoKWTRmOlCoPGYFh5Ey_USnfv1HXmlb1zHtMYaDB7Sd0EhvPmyUI_y3NMCOuZVQ1M2mTVMiIPDlGbuN1EQSgZxOg"></div></div></header><main class="relative pt-16 w-full px-space-lg min-h-screen bg-surface"><div class="flex flex-col w-full pb-space-xl">
+<!-- Dynamic Aura Ambient Background Decoration -->
+<div class="relative w-full overflow-hidden">
+<div class="absolute -top-32 -left-20 w-96 h-96 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-20 right-10 w-80 h-80 bg-secondary/10 rounded-full blur-3xl pointer-events-none"></div>
+<!-- Header Section with Key Metrics Bar -->
+<div class="relative z-10 pt-space-lg pb-space-lg flex flex-col gap-space-lg">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div>
+<div class="flex items-center gap-space-xs mb-1">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Ritmo Consciente • Hoy</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Registro Diario de Hábitos</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Mantén la coherencia y armoniza tu energía a lo largo de las jornadas.</p>
+</div>
+<!-- Quick Top Badges -->
+<div class="flex items-center gap-space-sm self-start md:self-auto">
+<div class="flex items-center gap-space-sm px-space-md py-space-xs rounded-xl bg-surface-container shadow-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[1.25rem]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Racha Actual</span>
+<span class="font-headline-md text-headline-md font-bold text-on-surface leading-tight">14 Días</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm px-space-md py-space-xs rounded-xl bg-surface-container shadow-sm">
+<div class="w-9 h-9 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[1.25rem]">event_available</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Consistencia</span>
+<span class="font-headline-md text-headline-md font-bold text-primary leading-tight">92.4%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Hero Metric Progress Strip -->
+<div class="p-space-lg rounded-2xl bg-surface-container-low shadow-sm relative overflow-hidden">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg relative z-10">
+<div class="flex items-center gap-space-lg min-w-max">
+<div class="relative w-24 h-24 flex items-center justify-center">
+<svg class="w-24 h-24 transform -rotate-90" viewBox="0 0 100 100">
+<circle class="text-surface-container-highest fill-none" cx="50" cy="50" r="42" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-secondary fill-none transition-all duration-700 ease-out" cx="50" cy="50" r="42" stroke="currentColor" stroke-dasharray="263.89" stroke-dashoffset="58" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-metric-numeral text-headline-md text-on-surface">78%</span>
+<span class="font-label-sm text-[0.625rem] text-on-surface-variant uppercase tracking-wider">Hoy</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface">Cumplimiento General</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">5 de 7 hábitos completados hoy con éxito.</span>
+<div class="flex items-center gap-2 mt-2">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/20 text-secondary font-label-sm text-[0.7rem] inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[0.875rem]">trending_up</span> +12% sobre la semana anterior
+                </span>
+</div>
+</div>
+</div>
+<div class="flex-1 max-w-xl flex flex-col gap-space-xs">
+<div class="flex justify-between items-center text-on-surface-variant font-label-sm text-label-sm">
+<span class="">Ritmo de Hoy • Miércoles, 24 Oct</span>
+<span class="text-secondary font-bold">2 restantes para el objetivo</span>
+</div>
+<!-- Multi-segment indicator bar -->
+<div class="w-full h-3 rounded-full bg-surface-container-highest overflow-hidden flex p-0.5 gap-1">
+<div class="h-full rounded-full bg-secondary transition-all" style="width: 78%;"></div>
+<div class="h-full rounded-full bg-primary-container/60 transition-all" style="width: 12%;"></div>
+<div class="h-full rounded-full bg-surface-container-high transition-all" style="width: 10%;"></div>
+</div>
+<div class="flex justify-between text-[0.75rem] text-outline font-label-sm pt-1">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary"></span> 5 Hechos</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary-container"></span> 1 En curso</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-surface-container-highest"></span> 1 Pendiente</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Content Layout (12 cols on desktop) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mt-space-md">
+<!-- Left 8 Columns: Weekly Habit Matrix & Routine Blocks -->
+<div class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- Weekly Matrix Tracker -->
+<section class="rounded-2xl bg-surface-container-low p-space-lg shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm mb-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[1.5rem]">calendar_view_week</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Matriz Semanal de Consistencia</h2>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Semana 43 • Octubre</span>
+<div class="flex items-center bg-surface-container rounded-lg p-0.5">
+<button aria-label="Semana anterior" class="p-1 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[1rem]">chevron_left</span>
+</button>
+<button aria-label="Semana siguiente" class="p-1 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[1rem]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Weekly Matrix Table/Grid -->
+<div class="overflow-x-auto -mx-space-lg px-space-lg pb-space-xs">
+<div class="min-w-[620px]">
+<!-- Header Columns -->
+<div class="grid grid-cols-12 gap-2 text-center pb-space-sm font-label-md text-label-md text-on-surface-variant">
+<div class="col-span-5 text-left pl-2 font-medium">Hábito</div>
+<div class="col-span-1">L<span class="hidden sm:inline font-normal text-[0.7rem] text-outline block">22</span></div>
+<div class="col-span-1">M<span class="hidden sm:inline font-normal text-[0.7rem] text-outline block">23</span></div>
+<div class="col-span-1 text-primary font-bold">X<span class="hidden sm:inline text-[0.7rem] text-primary block">24</span></div>
+<div class="col-span-1">J<span class="hidden sm:inline font-normal text-[0.7rem] text-outline block">25</span></div>
+<div class="col-span-1">V<span class="hidden sm:inline font-normal text-[0.7rem] text-outline block">26</span></div>
+<div class="col-span-1">S<span class="hidden sm:inline font-normal text-[0.7rem] text-outline block">27</span></div>
+<div class="col-span-1">D<span class="hidden sm:inline font-normal text-[0.7rem] text-outline block">28</span></div>
+</div>
+<!-- Habit Rows -->
+<div class="flex flex-col gap-2">
+<!-- Habit Row 1 -->
+<div class="grid grid-cols-12 gap-2 items-center p-2 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors">
+<div class="col-span-5 flex items-center gap-2 pl-1 truncate">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="font-body-md text-body-md text-on-surface truncate">Meditación Mindfulness</span>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-secondary text-on-secondary flex items-center justify-center shadow-[0_0_12px_rgba(78,222,163,0.35)]">
+<span class="material-symbols-outlined text-[1rem] font-bold">check</span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-secondary text-on-secondary flex items-center justify-center shadow-[0_0_12px_rgba(78,222,163,0.35)]">
+<span class="material-symbols-outlined text-[1rem] font-bold">check</span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-secondary text-on-secondary flex items-center justify-center shadow-[0_0_12px_rgba(78,222,163,0.35)] scale-105">
+<span class="material-symbols-outlined text-[1rem] font-bold">check</span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+</div>
+<!-- Habit Row 2 -->
+<div class="grid grid-cols-12 gap-2 items-center p-2 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors">
+<div class="col-span-5 flex items-center gap-2 pl-1 truncate">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="font-body-md text-body-md text-on-surface truncate">Hidratación 500ml agua</span>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-secondary text-on-secondary flex items-center justify-center shadow-[0_0_12px_rgba(78,222,163,0.35)]">
+<span class="material-symbols-outlined text-[1rem] font-bold">check</span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-secondary text-on-secondary flex items-center justify-center shadow-[0_0_12px_rgba(78,222,163,0.35)]">
+<span class="material-symbols-outlined text-[1rem] font-bold">check</span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-secondary text-on-secondary flex items-center justify-center shadow-[0_0_12px_rgba(78,222,163,0.35)] scale-105">
+<span class="material-symbols-outlined text-[1rem] font-bold">check</span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+</div>
+<!-- Habit Row 3 -->
+<div class="grid grid-cols-12 gap-2 items-center p-2 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors">
+<div class="col-span-5 flex items-center gap-2 pl-1 truncate">
+<span class="w-2.5 h-2.5 rounded-full bg-outline"></span>
+<span class="font-body-md text-body-md text-on-surface truncate">Lectura formativa 20 págs</span>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-secondary text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[1rem] font-bold">check</span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[1rem]">close</span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<button class="w-8 h-8 rounded-lg bg-surface-container-highest hover:bg-surface-bright flex items-center justify-center transition-all group" onclick="toggleMatrixHabit(this)">
+<span class="material-symbols-outlined text-[1.125rem] text-outline group-hover:text-secondary">add</span>
+</button>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+</div>
+<!-- Habit Row 4 -->
+<div class="grid grid-cols-12 gap-2 items-center p-2 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors">
+<div class="col-span-5 flex items-center gap-2 pl-1 truncate">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="font-body-md text-body-md text-on-surface truncate">Bloque Pomodoro 90m</span>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-secondary text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[1rem] font-bold">check</span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-secondary text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[1rem] font-bold">check</span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-secondary text-on-secondary flex items-center justify-center shadow-[0_0_12px_rgba(78,222,163,0.35)] scale-105">
+<span class="material-symbols-outlined text-[1rem] font-bold">check</span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+</div>
+<!-- Habit Row 5 -->
+<div class="grid grid-cols-12 gap-2 items-center p-2 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors">
+<div class="col-span-5 flex items-center gap-2 pl-1 truncate">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="font-body-md text-body-md text-on-surface truncate">Entrenamiento / Gym 45m</span>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-secondary text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[1rem] font-bold">check</span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-secondary text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[1rem] font-bold">check</span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-secondary text-on-secondary flex items-center justify-center shadow-[0_0_12px_rgba(78,222,163,0.35)] scale-105">
+<span class="material-symbols-outlined text-[1rem] font-bold">check</span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+<div class="col-span-1 flex justify-center">
+<div class="w-8 h-8 rounded-lg bg-surface-container-highest/60 flex items-center justify-center">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Routine Blocks by Time of Day -->
+<section class="flex flex-col gap-space-lg">
+<!-- Bloque 1: Rutina de Mañana -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary-container text-[1.25rem]">wb_twilight</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Rutina de Mañana</h3>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-[0.7rem]">06:30 - 09:00</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary">2 / 3 Completados</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Card 1 -->
+<div class="p-space-md rounded-2xl bg-surface-container-low flex flex-col justify-between shadow-sm hover:shadow-md transition-all group">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded-md bg-secondary/10 text-secondary font-label-sm text-[0.7rem] flex items-center gap-1">
+<span class="material-symbols-outlined text-[0.75rem]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+                    14 días
+                  </span>
+<span class="font-label-sm text-[0.75rem] text-outline">Diario</span>
+</div>
+<div class="mt-2">
+<h4 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Meditación Mindfulness</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">15 min de respiración guiada</p>
+</div>
+</div>
+<div class="pt-space-md mt-space-sm flex items-center justify-between bg-surface-container/40 -mx-space-md -mb-space-md px-space-md py-space-sm rounded-b-2xl">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[0.75rem]">
+<span class="material-symbols-outlined text-[0.875rem]">timer</span>
+<span class="">15 min avg</span>
+</div>
+<button class="px-space-sm py-1 rounded-lg bg-secondary text-on-secondary font-label-sm text-label-sm flex items-center gap-1 shadow-sm" onclick="toggleCardStatus(this)">
+<span class="material-symbols-outlined text-[1rem]">check</span>
+<span class="">Hecho</span>
+</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="p-space-md rounded-2xl bg-surface-container-low flex flex-col justify-between shadow-sm hover:shadow-md transition-all group">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded-md bg-secondary/10 text-secondary font-label-sm text-[0.7rem] flex items-center gap-1">
+<span class="material-symbols-outlined text-[0.75rem]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+                    21 días
+                  </span>
+<span class="font-label-sm text-[0.75rem] text-outline">Diario</span>
+</div>
+<div class="mt-2">
+<h4 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Hidratación Matutina</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">500ml agua con limón e hidratación</p>
+</div>
+</div>
+<div class="pt-space-md mt-space-sm flex items-center justify-between bg-surface-container/40 -mx-space-md -mb-space-md px-space-md py-space-sm rounded-b-2xl">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[0.75rem]">
+<span class="material-symbols-outlined text-[0.875rem]">local_cafe</span>
+<span class="">5 min avg</span>
+</div>
+<button class="px-space-sm py-1 rounded-lg bg-secondary text-on-secondary font-label-sm text-label-sm flex items-center gap-1 shadow-sm" onclick="toggleCardStatus(this)">
+<span class="material-symbols-outlined text-[1rem]">check</span>
+<span class="">Hecho</span>
+</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="p-space-md rounded-2xl bg-surface-container-low flex flex-col justify-between shadow-sm hover:shadow-md transition-all group">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded-md bg-surface-container-highest text-on-surface-variant font-label-sm text-[0.7rem] flex items-center gap-1">
+<span class="material-symbols-outlined text-[0.75rem]">local_fire_department</span>
+                    6 días
+                  </span>
+<span class="font-label-sm text-[0.75rem] text-outline">Diario</span>
+</div>
+<div class="mt-2">
+<h4 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Lectura Formativa</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">20 páginas sin distracciones</p>
+</div>
+</div>
+<div class="pt-space-md mt-space-sm flex items-center justify-between bg-surface-container/40 -mx-space-md -mb-space-md px-space-md py-space-sm rounded-b-2xl">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[0.75rem]">
+<span class="material-symbols-outlined text-[0.875rem]">timer</span>
+<span class="">25 min avg</span>
+</div>
+<button class="px-space-sm py-1 rounded-lg bg-surface-container-high hover:bg-primary hover:text-on-primary text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1 transition-colors" onclick="toggleCardStatus(this)">
+<span class="material-symbols-outlined text-[1rem]">circle</span>
+<span class="">Pendiente</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bloque 2: Trabajo y Enfoque -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[1.25rem]">psychology</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Trabajo &amp; Enfoque</h3>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-[0.7rem]">10:00 - 18:00</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary">1 Hecho • 1 En curso</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Card 4 -->
+<div class="p-space-md rounded-2xl bg-surface-container-low flex flex-col justify-between shadow-sm hover:shadow-md transition-all group">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded-md bg-secondary/10 text-secondary font-label-sm text-[0.7rem] flex items-center gap-1">
+<span class="material-symbols-outlined text-[0.75rem]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+                    9 días
+                  </span>
+<span class="font-label-sm text-[0.75rem] text-outline">5 días/sem</span>
+</div>
+<div class="mt-2">
+<h4 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Bloque Pomodoro 90 min</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Deep work estricto sin alertas ni Slack activo</p>
+</div>
+</div>
+<div class="pt-space-md mt-space-sm flex items-center justify-between bg-surface-container/40 -mx-space-md -mb-space-md px-space-md py-space-sm rounded-b-2xl">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[0.75rem]">
+<span class="material-symbols-outlined text-[0.875rem]">schedule</span>
+<span class="">90 min avg</span>
+</div>
+<button class="px-space-sm py-1 rounded-lg bg-secondary text-on-secondary font-label-sm text-label-sm flex items-center gap-1 shadow-sm" onclick="toggleCardStatus(this)">
+<span class="material-symbols-outlined text-[1rem]">check</span>
+<span class="">Hecho</span>
+</button>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="p-space-md rounded-2xl bg-surface-container-low flex flex-col justify-between shadow-sm hover:shadow-md transition-all group">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded-md bg-primary-container/20 text-primary font-label-sm text-[0.7rem] flex items-center gap-1">
+<span class="material-symbols-outlined text-[0.75rem]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+                    18 días
+                  </span>
+<span class="font-label-sm text-[0.75rem] text-outline">Diario</span>
+</div>
+<div class="mt-2">
+<h4 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Cero Azúcar Añadido</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Comidas limpias y colaciones sin glucosa extra</p>
+</div>
+</div>
+<div class="pt-space-md mt-space-sm flex items-center justify-between bg-surface-container/40 -mx-space-md -mb-space-md px-space-md py-space-sm rounded-b-2xl">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[0.75rem]">
+<span class="material-symbols-outlined text-[0.875rem]">restaurant</span>
+<span class="">Todo el día</span>
+</div>
+<button class="px-space-sm py-1 rounded-lg bg-primary-container text-on-primary-container font-label-sm text-label-sm flex items-center gap-1" onclick="toggleCardStatus(this)">
+<span class="material-symbols-outlined text-[1rem] animate-spin">sync</span>
+<span class="">En curso</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bloque 3: Rutina de Tarde / Noche -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[1.25rem]">nightlight</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Rutina de Tarde &amp; Noche</h3>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-[0.7rem]">19:00 - 23:00</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">1 Hecho • 1 Programado</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Card 6 -->
+<div class="p-space-md rounded-2xl bg-surface-container-low flex flex-col justify-between shadow-sm hover:shadow-md transition-all group">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded-md bg-secondary/10 text-secondary font-label-sm text-[0.7rem] flex items-center gap-1">
+<span class="material-symbols-outlined text-[0.75rem]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+                    4 días
+                  </span>
+<span class="font-label-sm text-[0.75rem] text-outline">4 días/sem</span>
+</div>
+<div class="mt-2">
+<h4 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Entrenamiento Gym 45m</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Rutina de fuerza tren superior + movilidad</p>
+</div>
+</div>
+<div class="pt-space-md mt-space-sm flex items-center justify-between bg-surface-container/40 -mx-space-md -mb-space-md px-space-md py-space-sm rounded-b-2xl">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[0.75rem]">
+<span class="material-symbols-outlined text-[0.875rem]">fitness_center</span>
+<span class="">45 min avg</span>
+</div>
+<button class="px-space-sm py-1 rounded-lg bg-secondary text-on-secondary font-label-sm text-label-sm flex items-center gap-1 shadow-sm" onclick="toggleCardStatus(this)">
+<span class="material-symbols-outlined text-[1rem]">check</span>
+<span class="">Hecho</span>
+</button>
+</div>
+</div>
+<!-- Card 7 -->
+<div class="p-space-md rounded-2xl bg-surface-container-low flex flex-col justify-between shadow-sm hover:shadow-md transition-all group">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded-md bg-surface-container-highest text-on-surface-variant font-label-sm text-[0.7rem] flex items-center gap-1">
+<span class="material-symbols-outlined text-[0.75rem]">local_fire_department</span>
+                    12 días
+                  </span>
+<span class="font-label-sm text-[0.75rem] text-outline">Diario</span>
+</div>
+<div class="mt-2">
+<h4 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Desconexión Digital 22:30</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Apagar pantallas, modo avión y luz tenue</p>
+</div>
+</div>
+<div class="pt-space-md mt-space-sm flex items-center justify-between bg-surface-container/40 -mx-space-md -mb-space-md px-space-md py-space-sm rounded-b-2xl">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[0.75rem]">
+<span class="material-symbols-outlined text-[0.875rem]">bedtime</span>
+<span class="">22:30 fijado</span>
+</div>
+<button class="px-space-sm py-1 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1 transition-colors" onclick="toggleCardStatus(this)">
+<span class="material-symbols-outlined text-[1rem]">alarm</span>
+<span class="">Programado</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right 4 Columns: Analytical Insights, Mindful Mood & Quick Actions -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- Action Button: Add Habit -->
+<button class="w-full py-space-md px-space-lg rounded-2xl bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container font-label-md text-label-md flex items-center justify-center gap-2 shadow-md transition-all group">
+<span class="material-symbols-outlined text-[1.25rem] group-hover:rotate-90 transition-transform">add_circle</span>
+<span class="">+ Añadir Nuevo Hábito</span>
+</button>
+<!-- Record Streak & Monthly Stats Card -->
+<div class="rounded-2xl bg-surface-container-low p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-surface">Racha Récord</h3>
+<span class="px-2 py-0.5 rounded-md bg-secondary/10 text-secondary font-label-sm text-label-sm">Histórico</span>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-xl bg-secondary/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[1.75rem]" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+</div>
+<div class="flex flex-col">
+<span class="font-metric-numeral text-headline-md font-bold text-on-surface">38 Días</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Récord de racha global (Septiembre)</span>
+</div>
+</div>
+</div>
+<!-- Monthly Consistency Mini Bar Chart -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<div class="flex justify-between items-center text-on-surface-variant font-label-sm text-label-sm">
+<span class="">Consistencia Mensual</span>
+<span class="text-secondary font-bold">88.5%</span>
+</div>
+<!-- SVG Sparkline Bar Matrix -->
+<div class="h-20 w-full flex items-end justify-between gap-1 pt-2">
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[45%] hover:bg-primary transition-all" title="Sem 1: 45%"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[60%] hover:bg-primary transition-all" title="Sem 2: 60%"></div>
+<div class="flex-1 bg-secondary rounded-t-sm h-[85%] hover:opacity-90 transition-all" title="Sem 3: 85%"></div>
+<div class="flex-1 bg-secondary rounded-t-sm h-[92%] hover:opacity-90 transition-all" title="Sem 4: 92%"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[70%] hover:bg-primary transition-all" title="Sem 5: 70%"></div>
+<div class="flex-1 bg-secondary rounded-t-sm h-[95%] hover:opacity-90 transition-all" title="Sem 6: 95%"></div>
+<div class="flex-1 bg-secondary rounded-t-sm h-[88%] hover:opacity-90 transition-all" title="Sem 7: 88%"></div>
+<div class="flex-1 bg-secondary rounded-t-sm h-[100%] shadow-[0_0_8px_rgba(78,222,163,0.3)] hover:opacity-90 transition-all" title="Semana Actual: 100%"></div>
+</div>
+<div class="flex justify-between font-label-sm text-[0.7rem] text-outline pt-1">
+<span class="">Hace 8 sem</span>
+<span class="">Esta semana</span>
+</div>
+</div>
+</div>
+<!-- Reflection & Mood of Today Widget -->
+
+<!-- Quick Habit Ecosystem Snapshot -->
+
+</div>
+</div>
+</div>
+<script>
+  function toggleCardStatus(button) {
+    const isCompleted = button.classList.contains('bg-secondary');
+    if (isCompleted) {
+      button.className = "px-space-sm py-1 rounded-lg bg-surface-container-high hover:bg-primary hover:text-on-primary text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1 transition-colors";
+      button.innerHTML = '<span class="material-symbols-outlined text-[1rem]">circle</span><span>Pendiente</span>';
+    } else {
+      button.className = "px-space-sm py-1 rounded-lg bg-secondary text-on-secondary font-label-sm text-label-sm flex items-center gap-1 shadow-sm transition-all";
+      button.innerHTML = '<span class="material-symbols-outlined text-[1rem]">check</span><span>Hecho</span>';
+    }
+  }
+
+  function toggleMatrixHabit(btn) {
+    const isChecked = btn.classList.contains('bg-secondary');
+    if (isChecked) {
+      btn.className = "w-8 h-8 rounded-lg bg-surface-container-highest hover:bg-surface-bright flex items-center justify-center transition-all group";
+      btn.innerHTML = '<span class="material-symbols-outlined text-[1.125rem] text-outline group-hover:text-secondary">add</span>';
+    } else {
+      btn.className = "w-8 h-8 rounded-lg bg-secondary text-on-secondary flex items-center justify-center shadow-[0_0_12px_rgba(78,222,163,0.35)] scale-105 transition-all";
+      btn.innerHTML = '<span class="material-symbols-outlined text-[1rem] font-bold">check</span>';
+    }
+  }
+
+  function setEnergy(level) {
+    const buttons = document.querySelectorAll('#energySelector .energy-btn');
+    buttons.forEach((btn, index) => {
+      if (index + 1 === level) {
+        btn.className = "energy-btn py-2 flex flex-col items-center justify-center rounded-lg bg-surface-container-highest text-secondary shadow-sm transition-colors";
+      } else {
+        btn.className = "energy-btn py-2 flex flex-col items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors text-outline";
+      }
+    });
+  }
+
+  function saveReflection(btn) {
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[0.875rem] text-secondary">check_circle</span><span>Guardado</span>';
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+    }, 2000);
+  }
+</script></main></div>
+
+</body></html>
