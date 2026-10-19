@@ -1,6 +1,6 @@
 # SPEC 01 — Hábitos (MVP frontend)
 
-> Estado: **borrador, pendiente de aprobación del dueño**
+> Estado: **aprobada e implementada** (pendiente de revisión del dueño)
 > Rama: `feature/habitos`
 > Referencia visual: `.design-reference/.../h_bitos_diarios_y_rutinas/screen.png` + `serene_pulse/DESIGN.md`
 > Spec redactada con asistencia de IA (Claude) a partir de las respuestas del dueño.
@@ -100,14 +100,14 @@ frontend/
 
 ## 6. Criterios de aceptación
 
-- [ ] `npm run build` termina sin errores.
-- [ ] Puedo crear, editar y borrar un hábito; al recargar la página los cambios siguen ahí.
-- [ ] Marcar o desmarcar una celda actualiza al instante el anillo, la racha y el %.
-- [ ] No se puede marcar un día futuro.
-- [ ] Navegar a semanas pasadas muestra los registros correctos.
-- [ ] Con 0 hábitos aparece un estado vacío con una llamada a crear el primero.
-- [ ] El layout es usable a 400px de ancho: la sidebar se colapsa y la matriz hace scroll horizontal.
-- [ ] Hay tests de `habitStats` que cubren la racha con hoy pendiente, la frecuencia semanal y el hábito creado hace poco.
+- [x] `npm run build` termina sin errores.
+- [x] Puedo crear, editar y borrar un hábito; al recargar la página los cambios siguen ahí.
+- [x] Marcar o desmarcar una celda actualiza al instante el anillo, la racha y el %.
+- [x] No se puede marcar un día futuro.
+- [x] Navegar a semanas pasadas muestra los registros correctos.
+- [x] Con 0 hábitos aparece un estado vacío con una llamada a crear el primero.
+- [x] El layout es usable a 400px de ancho: la sidebar se colapsa y la matriz hace scroll horizontal.
+- [x] Hay tests de `habitStats` que cubren la racha con hoy pendiente, la frecuencia semanal y el hábito creado hace poco.
 
 ## 7. Plan de commits
 
@@ -118,3 +118,14 @@ frontend/
 5. `feat: modal para crear, editar y borrar hábitos`
 6. `feat: resumen del día y métricas de racha/consistencia`
 7. `test: pruebas de cálculo de rachas y consistencia`
+
+## 8. Verificación realizada
+
+- `npm run build` sin errores y `npm test`: 19 tests en verde (`habitStats`, `dates`).
+- Prueba automatizada en Edge headless con datos de ejemplo: marcar una celda, crear un hábito,
+  validar el nombre vacío, borrar un hábito, ir a la semana anterior y recargar la página.
+- Capturas revisadas a 1400px y 400px de ancho.
+
+### Decisión tomada durante la implementación
+- Los días **anteriores a `createdAt`** tampoco se pueden marcar en la matriz. Las métricas
+  los ignoran, así que permitir marcarlos sería confuso.

@@ -61,7 +61,7 @@ export default function Sidebar({ activeSection }) {
           >
             <Icon name={item.id} />
             <span className="nav-item__label">{item.label}</span>
-            {!item.enabled && <span className="nav-item__soon">Próximamente</span>}
+            {!item.enabled && <span className="nav-item__soon">Pronto</span>}
           </button>
         ))}
       </nav>
