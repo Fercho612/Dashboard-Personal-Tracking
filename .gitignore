@@ -5,5 +5,5 @@ __pycache__/
 .env
 .venv/
 
-# Archivo original de diseño (ya descomprimido en .design-reference/)
 *.zip
+README.md
