@@ -2,7 +2,6 @@ import { useState } from 'react'
 import Sidebar from './components/Sidebar.jsx'
 import HabitsPage from './features/habits/HabitsPage.jsx'
 import SchedulePage from './features/schedule/SchedulePage.jsx'
-import './styles/global.css'
 
 // Fecha larga en español, p. ej. "domingo, 19 de octubre".
 const todayLabel = new Date().toLocaleDateString('es', {
