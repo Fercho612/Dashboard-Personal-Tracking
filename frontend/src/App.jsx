@@ -1,4 +1,5 @@
 import Sidebar from './components/Sidebar.jsx'
+import HabitsPage from './features/habits/HabitsPage.jsx'
 import './styles/global.css'
 
 // Fecha larga en español, p. ej. "domingo, 19 de octubre".
@@ -14,8 +15,9 @@ export default function App() {
       <Sidebar activeSection="habits" />
       <main className="app__main">
         <header className="app__header">
-          <span>{todayLabel}</span>
+          <span className="capitalize">{todayLabel}</span>
         </header>
+        <HabitsPage />
       </main>
     </div>
   )

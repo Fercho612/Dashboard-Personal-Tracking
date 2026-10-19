@@ -1,0 +1,245 @@
+/* ---------- Encabezado de página ---------- */
+
+.habits-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  max-width: 72rem;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--color-success-soft);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.page-heading__title {
+  margin: var(--space-xs) 0;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+}
+
+.page-heading__subtitle {
+  margin: 0;
+  color: var(--text-medium);
+}
+
+/* ---------- Tarjetas y botones base ---------- */
+
+.card {
+  padding: var(--space-lg);
+  background: var(--color-surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.card__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: 0.625rem var(--space-md);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-weight: 600;
+  transition: background 150ms, transform 150ms;
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn--primary:hover {
+  background: #7577f5;
+  transform: translateY(-1px);
+}
+
+.btn--ghost {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border-default);
+  color: var(--text-high);
+}
+
+.btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.btn--small {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: 0.8125rem;
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+.empty-state p {
+  margin: 0;
+  color: var(--text-medium);
+}
+
+/* ---------- Matriz semanal ---------- */
+
+.matrix__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.matrix__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.matrix__week {
+  margin-right: var(--space-xs);
+  color: var(--text-medium);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.matrix__scroll {
+  overflow-x: auto;
+}
+
+.matrix__table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: var(--space-sm);
+}
+
+.matrix__table th {
+  color: var(--text-medium);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.matrix__table thead th.is-today {
+  color: var(--color-primary-soft);
+}
+
+.matrix__day-num {
+  margin-left: 2px;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.matrix__table .matrix__habit-col {
+  min-width: 11rem;
+  text-align: left;
+}
+
+.matrix__habit-name {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) 0;
+  border: 0;
+  background: none;
+  color: var(--text-high);
+  font-weight: 500;
+  text-align: left;
+}
+
+.matrix__habit-name::before {
+  content: '';
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-success);
+}
+
+.matrix__habit-name:hover {
+  color: var(--color-primary-soft);
+}
+
+.matrix__table td {
+  text-align: center;
+}
+
+/* Cada celda es un botón cuadrado de 36px (spec del design system) */
+.matrix__cell {
+  display: inline-grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-sm);
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
+  transition: background 150ms, transform 150ms;
+}
+
+.matrix__cell--pending:hover,
+.matrix__cell--off:hover {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.matrix__cell--done {
+  border: 1px solid transparent;
+  background: var(--color-success);
+  box-shadow: var(--glow-success);
+  animation: cell-pop 200ms ease-out;
+}
+
+/* No le toca según su frecuencia: se ve atenuado, pero se puede marcar igual */
+.matrix__cell--off {
+  opacity: 0.4;
+}
+
+.matrix__cell--future,
+.matrix__cell--inactive {
+  border-style: solid;
+  border-color: transparent;
+  opacity: 0.35;
+}
+
+@keyframes cell-pop {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
+  }
+}

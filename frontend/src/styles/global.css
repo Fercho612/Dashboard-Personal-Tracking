@@ -179,3 +179,9 @@ button:disabled {
     padding: var(--space-md);
   }
 }
+
+/* ---------- Utilidades ---------- */
+
+.capitalize {
+  text-transform: capitalize;
+}
