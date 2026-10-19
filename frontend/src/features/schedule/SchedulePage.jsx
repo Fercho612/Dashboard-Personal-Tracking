@@ -6,6 +6,7 @@ import BlockDrawer from './BlockDrawer.jsx'
 import CategoryFilters from './CategoryFilters.jsx'
 import CategoryManager from './CategoryManager.jsx'
 import RangeSettings from './RangeSettings.jsx'
+import HoursSummary from './HoursSummary.jsx'
 import './schedule.css'
 
 const DEFAULT_DURATION = 60
@@ -93,6 +94,8 @@ export default function SchedulePage() {
           </button>
         </div>
       </div>
+
+      <HoursSummary blocks={blocks} categories={categories} />
 
       <section className="card schedule-card">
         <CategoryFilters
