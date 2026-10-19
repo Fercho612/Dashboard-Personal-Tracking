@@ -3,15 +3,30 @@ import { useSchedule } from './useSchedule.js'
 import { MIN_DURATION, getResizeBounds } from './scheduleUtils.js'
 import WeekGrid from './WeekGrid.jsx'
 import BlockDrawer from './BlockDrawer.jsx'
+import CategoryFilters from './CategoryFilters.jsx'
+import CategoryManager from './CategoryManager.jsx'
 import './schedule.css'
 
 const DEFAULT_DURATION = 60
 
 export default function SchedulePage() {
-  const { blocks, categories, settings, addBlock, updateBlock, deleteBlock } = useSchedule()
+  const {
+    blocks,
+    categories,
+    settings,
+    addBlock,
+    updateBlock,
+    deleteBlock,
+    addCategory,
+    updateCategory,
+    deleteCategory,
+  } = useSchedule()
 
   // null = cerrado · { block } = editar · { block: null, draft } = crear
   const [drawer, setDrawer] = useState(null)
+  const [isManagingCategories, setIsManagingCategories] = useState(false)
+  // Categorías visibles en la grilla (Set vacío = todas). Es estado de la vista, no se guarda.
+  const [visibleCategoryIds, setVisibleCategoryIds] = useState(() => new Set())
 
   // Borrador para un bloque nuevo en `day` a partir de `start`: dura 1 h, pero se acorta
   // si choca con el bloque siguiente o con el cierre de la franja.
@@ -41,6 +56,16 @@ export default function SchedulePage() {
     setDrawer(null)
   }
 
+  function handleDeleteCategory(id) {
+    deleteCategory(id)
+    // Si estaba en el filtro, la sacamos: si no, el filtro quedaría apuntando a algo que no existe.
+    setVisibleCategoryIds((current) => {
+      const next = new Set(current)
+      next.delete(id)
+      return next
+    })
+  }
+
   return (
     <div className="schedule-page">
       <div className="page-heading">
@@ -57,10 +82,18 @@ export default function SchedulePage() {
       </div>
 
       <section className="card schedule-card">
+        <CategoryFilters
+          categories={categories}
+          blocks={blocks}
+          selectedIds={visibleCategoryIds}
+          onChange={setVisibleCategoryIds}
+          onManage={() => setIsManagingCategories(true)}
+        />
         <WeekGrid
           blocks={blocks}
           categories={categories}
           settings={settings}
+          visibleCategoryIds={visibleCategoryIds}
           onBlockClick={(block) => setDrawer({ block })}
           onSlotClick={openCreate}
           onBlockResize={(block, { start, end }) => updateBlock(block.id, { start, end })}
@@ -77,6 +110,17 @@ export default function SchedulePage() {
           onSave={handleSave}
           onDelete={handleDelete}
           onClose={() => setDrawer(null)}
+        />
+      )}
+
+      {isManagingCategories && (
+        <CategoryManager
+          categories={categories}
+          blocks={blocks}
+          onAdd={addCategory}
+          onUpdate={updateCategory}
+          onDelete={handleDeleteCategory}
+          onClose={() => setIsManagingCategories(false)}
         />
       )}
     </div>

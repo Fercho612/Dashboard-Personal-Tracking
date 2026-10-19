@@ -9,7 +9,19 @@ import {
   toTimeLabel,
 } from './scheduleUtils.js'
 
-export default function WeekGrid({ blocks, categories, settings, onBlockClick, onSlotClick, onBlockResize }) {
+/**
+ * `blocks` son TODOS los bloques: se usan para calcular límites de redimensionado.
+ * `visibleCategoryIds` solo decide cuáles se dibujan (Set vacío = todos).
+ */
+export default function WeekGrid({
+  blocks,
+  categories,
+  settings,
+  visibleCategoryIds,
+  onBlockClick,
+  onSlotClick,
+  onBlockResize,
+}) {
   const { dayStart, dayEnd } = settings
   const todayIndex = new Date().getDay()
 
@@ -59,6 +71,7 @@ export default function WeekGrid({ blocks, categories, settings, onBlockClick, o
           >
             {blocks
               .filter((block) => block.day === day)
+              .filter((block) => visibleCategoryIds.size === 0 || visibleCategoryIds.has(block.categoryId))
               .map((block) => (
                 <ScheduleBlock
                   key={block.id}

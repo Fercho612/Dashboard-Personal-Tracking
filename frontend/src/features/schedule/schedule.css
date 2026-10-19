@@ -298,3 +298,113 @@
   box-shadow: var(--shadow-float);
   outline: 1px solid var(--cat);
 }
+
+/* ---------- Filtros por categoría ---------- */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.filters__label {
+  color: var(--text-subtle);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.filters__manage {
+  margin-left: auto;
+}
+
+.chip {
+  --cat: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) 0.75rem;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--text-medium);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.chip:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.chip.is-active {
+  border-color: var(--cat);
+  background: color-mix(in srgb, var(--cat) 18%, transparent);
+  color: var(--text-high);
+}
+
+.chip__count {
+  color: var(--text-subtle);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Gestor de categorías ---------- */
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.category-list__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius);
+  background: var(--color-surface-1);
+}
+
+.category-list__name {
+  font-weight: 600;
+}
+
+.category-list__count {
+  color: var(--text-subtle);
+  font-size: 0.8125rem;
+}
+
+.category-list__actions {
+  display: flex;
+  gap: var(--space-xs);
+  margin-left: auto;
+}
+
+.category-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.swatch {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid transparent;
+  border-radius: var(--radius-full);
+  background: var(--cat);
+}
+
+/* El anillo doble (fondo + blanco) marca el color elegido sobre cualquier tono */
+.swatch.is-selected {
+  box-shadow: 0 0 0 2px var(--color-surface-3), 0 0 0 4px var(--text-high);
+}
