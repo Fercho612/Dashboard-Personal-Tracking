@@ -126,6 +126,11 @@ button:disabled {
   text-align: left;
 }
 
+.nav-item:not(:disabled):not(.nav-item--active):hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-high);
+}
+
 .nav-item--active {
   background: var(--color-primary);
   color: #fff;

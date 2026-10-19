@@ -28,15 +28,15 @@ function Icon({ name }) {
   )
 }
 
-// Por ahora solo "Hábitos" está implementado; el resto queda visible pero deshabilitado.
+// Las secciones sin implementar quedan visibles pero deshabilitadas.
 const NAV_ITEMS = [
   { id: 'habits', label: 'Hábitos', enabled: true },
-  { id: 'calendar', label: 'Calendario Semanal', enabled: false },
+  { id: 'calendar', label: 'Calendario Semanal', enabled: true },
   { id: 'tasks', label: 'Lista de Tareas', enabled: false },
   { id: 'stats', label: 'Estadísticas', enabled: false },
 ]
 
-export default function Sidebar({ activeSection }) {
+export default function Sidebar({ activeSection, onNavigate }) {
   return (
     <aside className="sidebar">
       <div className="sidebar__brand">
@@ -58,6 +58,7 @@ export default function Sidebar({ activeSection }) {
             disabled={!item.enabled}
             aria-current={item.id === activeSection ? 'page' : undefined}
             title={item.enabled ? item.label : `${item.label} (próximamente)`}
+            onClick={() => onNavigate(item.id)}
           >
             <Icon name={item.id} />
             <span className="nav-item__label">{item.label}</span>
