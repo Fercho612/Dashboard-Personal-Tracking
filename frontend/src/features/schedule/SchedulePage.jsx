@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useSchedule } from './useSchedule.js'
-import { MIN_DURATION, getResizeBounds } from './scheduleUtils.js'
+import { MIN_DURATION, getResizeBounds, toTimeLabel } from './scheduleUtils.js'
 import WeekGrid from './WeekGrid.jsx'
 import BlockDrawer from './BlockDrawer.jsx'
 import CategoryFilters from './CategoryFilters.jsx'
 import CategoryManager from './CategoryManager.jsx'
+import RangeSettings from './RangeSettings.jsx'
 import './schedule.css'
 
 const DEFAULT_DURATION = 60
@@ -20,11 +21,13 @@ export default function SchedulePage() {
     addCategory,
     updateCategory,
     deleteCategory,
+    updateSettings,
   } = useSchedule()
 
   // null = cerrado · { block } = editar · { block: null, draft } = crear
   const [drawer, setDrawer] = useState(null)
   const [isManagingCategories, setIsManagingCategories] = useState(false)
+  const [isEditingRange, setIsEditingRange] = useState(false)
   // Categorías visibles en la grilla (Set vacío = todas). Es estado de la vista, no se guarda.
   const [visibleCategoryIds, setVisibleCategoryIds] = useState(() => new Set())
 
@@ -76,9 +79,19 @@ export default function SchedulePage() {
             Planifica tu semana ideal en bloques de tiempo. Se repite todas las semanas.
           </p>
         </div>
-        <button type="button" className="btn btn--primary" onClick={openCreateFromButton}>
-          + Agregar bloque
-        </button>
+        <div className="page-heading__actions">
+          <button
+            type="button"
+            className="btn btn--ghost"
+            onClick={() => setIsEditingRange(true)}
+            title="Cambiar la franja horaria visible"
+          >
+            ⚙ {toTimeLabel(settings.dayStart)}–{toTimeLabel(settings.dayEnd)}
+          </button>
+          <button type="button" className="btn btn--primary" onClick={openCreateFromButton}>
+            + Agregar bloque
+          </button>
+        </div>
       </div>
 
       <section className="card schedule-card">
@@ -121,6 +134,18 @@ export default function SchedulePage() {
           onUpdate={updateCategory}
           onDelete={handleDeleteCategory}
           onClose={() => setIsManagingCategories(false)}
+        />
+      )}
+
+      {isEditingRange && (
+        <RangeSettings
+          settings={settings}
+          blocks={blocks}
+          onSave={(range) => {
+            updateSettings(range)
+            setIsEditingRange(false)
+          }}
+          onClose={() => setIsEditingRange(false)}
         />
       )}
     </div>

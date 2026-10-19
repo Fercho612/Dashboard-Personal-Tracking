@@ -103,6 +103,7 @@ export function getBlocksOutsideRange(blocks, dayStart, dayEnd) {
 
 // Valida una nueva franja horaria. Devuelve el mensaje de error o null.
 export function validateRange(dayStart, dayEnd, blocks) {
+  if (dayEnd <= dayStart) return 'La hora de fin debe ser posterior a la de inicio.'
   if (dayEnd - dayStart < 60) return 'La franja debe durar al menos 1 hora.'
   const outside = getBlocksOutsideRange(blocks, dayStart, dayEnd)
   if (outside.length > 0) {
