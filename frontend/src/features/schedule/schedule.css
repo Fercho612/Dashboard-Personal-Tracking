@@ -1,0 +1,497 @@
+/* ---------- Página del calendario ---------- */
+
+.schedule-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  max-width: 80rem;
+}
+
+.schedule-card {
+  padding: var(--space-md);
+}
+
+/* ---------- Grilla semanal ---------- */
+
+.week-grid__scroll {
+  overflow-x: auto;
+}
+
+/*
+ * Grid de 8 columnas: horas + 7 días. Fila 1 = encabezados, fila 2 = cuerpo.
+ * La altura del cuerpo sale de la duración de la franja: minutos × (alto de hora / 60).
+ */
+.week-grid {
+  --minute-height: calc(var(--hour-height) / 60);
+  display: grid;
+  grid-template-columns: 3.5rem repeat(7, minmax(6.5rem, 1fr));
+  grid-template-rows: auto calc(var(--total-minutes) * var(--minute-height));
+  min-width: 52rem;
+}
+
+.week-grid__day-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) 0 var(--space-md);
+  color: var(--text-medium);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.week-grid__day-header.is-today {
+  color: var(--color-primary-soft);
+}
+
+.week-grid__today-pill {
+  padding: 0 var(--space-sm);
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.625rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.week-grid__hours {
+  position: relative;
+}
+
+.week-grid__hour {
+  position: absolute;
+  top: calc(var(--offset) * var(--minute-height));
+  right: var(--space-sm);
+  transform: translateY(-50%); /* centra la etiqueta sobre la línea de la hora */
+  color: var(--text-subtle);
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Cada columna dibuja sus líneas de hora con un gradiente que se repite cada --hour-height:
+ * así no hace falta un <div> por cada hora.
+ */
+.week-grid__column {
+  position: relative;
+  border-left: 1px solid rgba(255, 255, 255, 0.04);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.06) 0 1px,
+    transparent 1px var(--hour-height)
+  );
+  cursor: copy;
+}
+
+.week-grid__column.is-today {
+  background-color: rgba(99, 102, 241, 0.04);
+}
+
+/* ---------- Bloque ---------- */
+
+.block {
+  position: absolute;
+  top: calc(var(--offset) * var(--minute-height));
+  left: 3px;
+  right: 3px;
+  height: calc(var(--duration) * var(--minute-height));
+  /* color-mix mezcla el color de la categoría con la superficie para un fondo translúcido */
+  background: color-mix(in srgb, var(--cat) 16%, var(--color-surface-2));
+  border-left: 3px solid var(--cat);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: default;
+}
+
+.block:hover {
+  background: color-mix(in srgb, var(--cat) 24%, var(--color-surface-2));
+}
+
+.block__body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: var(--space-xs) var(--space-sm);
+  border: 0;
+  background: none;
+  color: var(--text-high);
+  text-align: left;
+}
+
+/* El título ocupa hasta 2 líneas y después se corta con "…" */
+.block__title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.block__time {
+  color: var(--text-medium);
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Bloques cortos (< 45 min): título y hora en una sola línea */
+.block--compact .block__body {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-xs);
+  padding-block: 0;
+}
+
+.block--compact .block__title {
+  -webkit-line-clamp: 1;
+}
+
+.block--compact .block__time {
+  display: none;
+}
+
+/* ---------- Drawer (panel lateral) ---------- */
+
+/* Reutiliza .modal y lo pega al borde derecho, con todo el alto de la pantalla */
+.drawer {
+  width: min(26rem, 100%);
+  max-width: 100%; /* el navegador limita el ancho de <dialog> por defecto */
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0 0 0 auto;
+  border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+  animation: drawer-in 200ms ease-out;
+}
+
+@keyframes drawer-in {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+.drawer__body {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Empuja las acciones al fondo del panel */
+.drawer__actions {
+  margin-top: auto;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+/* ---------- Opciones de categoría (radios con punto de color) ---------- */
+
+.category-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.category-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius);
+  background: var(--color-surface-1);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.category-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.category-option.is-active {
+  border-color: var(--cat);
+  background: color-mix(in srgb, var(--cat) 14%, var(--color-surface-1));
+}
+
+.category-option:has(input:focus-visible) {
+  outline: 2px solid var(--color-primary);
+}
+
+.category-dot {
+  flex-shrink: 0;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: var(--radius-full);
+  background: var(--cat);
+}
+
+@media (max-width: 560px) {
+  .drawer {
+    border-radius: 0;
+  }
+}
+
+/* ---------- Manijas de redimensionado ---------- */
+
+.block__handle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  height: 8px;
+  cursor: ns-resize;
+  touch-action: none; /* en pantallas táctiles, arrastrar la manija no hace scroll */
+}
+
+.block__handle--start {
+  top: 0;
+}
+
+.block__handle--end {
+  bottom: 0;
+}
+
+/* Una rayita guía que aparece al pasar el mouse por el bloque */
+.block__handle::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 1.5rem;
+  height: 3px;
+  border-radius: var(--radius-full);
+  background: var(--cat);
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: opacity 150ms;
+}
+
+.block__handle--start::after {
+  top: 2px;
+}
+
+.block__handle--end::after {
+  bottom: 2px;
+}
+
+.block:hover .block__handle::after,
+.block--resizing .block__handle::after {
+  opacity: 1;
+}
+
+.block--resizing {
+  z-index: 2;
+  box-shadow: var(--shadow-float);
+  outline: 1px solid var(--cat);
+}
+
+/* ---------- Filtros por categoría ---------- */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.filters__label {
+  color: var(--text-subtle);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.filters__manage {
+  margin-left: auto;
+}
+
+.chip {
+  --cat: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) 0.75rem;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--text-medium);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.chip:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.chip.is-active {
+  border-color: var(--cat);
+  background: color-mix(in srgb, var(--cat) 18%, transparent);
+  color: var(--text-high);
+}
+
+.chip__count {
+  color: var(--text-subtle);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Gestor de categorías ---------- */
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.category-list__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius);
+  background: var(--color-surface-1);
+}
+
+.category-list__name {
+  font-weight: 600;
+}
+
+.category-list__count {
+  color: var(--text-subtle);
+  font-size: 0.8125rem;
+}
+
+.category-list__actions {
+  display: flex;
+  gap: var(--space-xs);
+  margin-left: auto;
+}
+
+.category-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.swatch {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid transparent;
+  border-radius: var(--radius-full);
+  background: var(--cat);
+}
+
+/* El anillo doble (fondo + blanco) marca el color elegido sobre cualquier tono */
+.swatch.is-selected {
+  box-shadow: 0 0 0 2px var(--color-surface-3), 0 0 0 4px var(--text-high);
+}
+
+/* ---------- Resumen de horas ---------- */
+
+.hours-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-lg) var(--space-xl);
+  padding: var(--space-md) var(--space-lg);
+}
+
+.hours-summary__total {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hours-summary__value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.hours-summary__detail {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-width: 16rem;
+}
+
+/* Barra apilada: segmentos separados por 2px de "aire" para no depender solo del color */
+.stacked-bar {
+  display: flex;
+  gap: 2px;
+  height: 0.625rem;
+}
+
+.stacked-bar__segment {
+  min-width: 4px;
+  background: var(--cat);
+}
+
+.stacked-bar__segment:first-child {
+  border-radius: 4px 0 0 4px;
+}
+
+.stacked-bar__segment:last-child {
+  border-radius: 0 4px 4px 0;
+}
+
+.stacked-bar__segment:only-child {
+  border-radius: 4px;
+}
+
+.hours-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-lg);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hours-legend__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.8125rem;
+}
+
+.hours-legend__name {
+  color: var(--text-high);
+  font-weight: 500;
+}
+
+.hours-legend__value {
+  color: var(--text-medium);
+  font-variant-numeric: tabular-nums;
+}
+
+.hours-legend__item.is-empty {
+  opacity: 0.5;
+}
