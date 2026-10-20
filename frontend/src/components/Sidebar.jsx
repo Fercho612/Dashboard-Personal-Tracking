@@ -44,7 +44,7 @@ export default function Sidebar({ activeSection, onNavigate }) {
           <Icon name="stats" />
         </div>
         <div>
-          <p className="sidebar__title">FocusPulse</p>
+          <p className="sidebar__title">HabitFlow</p>
           <p className="sidebar__subtitle">Mindful Momentum</p>
         </div>
       </div>
