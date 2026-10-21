@@ -128,6 +128,6 @@ El dueño del dashboard (uso personal, un solo usuario, sin cuenta).
 - Capturas revisadas a 1300 px y a 400 px de ancho (iframe de 400 px, sin scroll horizontal de la página).
 
 ### Decisiones tomadas durante la implementación
-- **Lectura sin escritura:** Estadísticas usa `useStatsData`, que reutiliza `loadState` de `useHabits` pero nunca guarda. `useHabits` sí escribe al montarse (problema previo, anotado en `MEMORY.md`).
+- **Lectura sin escritura:** Estadísticas usa `useStatsData`, que reutiliza `loadState` de `useHabits` pero nunca guarda. `useHabits` escribía al montarse y pisaba un JSON corrupto; ya está corregido (solo guarda tras la primera acción del usuario).
 - **Barras con scroll propio:** con muchas barras semanales y poco ancho, cada barra tiene un ancho mínimo y el gráfico hace scroll dentro de su tarjeta, para que las etiquetas no se pisen.
 - **Celdas de la matriz acotadas** a un ancho máximo para que no se agranden en pantallas anchas.
