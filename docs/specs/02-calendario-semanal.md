@@ -59,7 +59,7 @@ frontend; los datos se guardan en `localStorage`, igual que los hábitos.
 - Subtareas dentro del bloque.
 - **Mover** un bloque arrastrándolo a otro día u hora. Solo se redimensiona; para moverlo
   se edita en el panel.
-- Línea de "hora actual", buscador y relación con hábitos o tareas.
+- Línea de "hora actual", buscador y relación con hábitos.
 
 ## 3. Modelo de datos
 

@@ -4,7 +4,7 @@ const STORAGE_KEY = 'dashboard.habits.v1'
 const EMPTY_STATE = { habits: [], completions: {} }
 
 // Lee el estado guardado. Si no hay nada o el JSON está corrupto, arranca vacío.
-function loadState() {
+export function loadState() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (!raw) return EMPTY_STATE

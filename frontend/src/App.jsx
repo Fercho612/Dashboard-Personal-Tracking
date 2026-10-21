@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Sidebar from './components/Sidebar.jsx'
 import HabitsPage from './features/habits/HabitsPage.jsx'
 import SchedulePage from './features/schedule/SchedulePage.jsx'
+import StatsPage from './features/stats/StatsPage.jsx'
 
 // Fecha larga en español, p. ej. "domingo, 19 de octubre".
 const todayLabel = new Date().toLocaleDateString('es', {
@@ -23,6 +24,7 @@ export default function App() {
         </header>
         {activeSection === 'habits' && <HabitsPage />}
         {activeSection === 'calendar' && <SchedulePage />}
+        {activeSection === 'stats' && <StatsPage onNavigate={setActiveSection} />}
       </main>
     </div>
   )

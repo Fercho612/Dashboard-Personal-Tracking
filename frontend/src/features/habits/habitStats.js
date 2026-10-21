@@ -24,7 +24,7 @@ export function getStartKey(habit, completions) {
 }
 
 // Hábitos que "cuentan" en una fecha: ya habían empezado y les toca ese día.
-function getScheduledHabits(habits, completions, date) {
+export function getScheduledHabits(habits, completions, date) {
   const dateKey = toDateKey(date)
   return habits.filter(
     (habit) => getStartKey(habit, completions) <= dateKey && isScheduledOn(habit, date),

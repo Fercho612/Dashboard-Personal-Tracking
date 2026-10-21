@@ -6,7 +6,6 @@ const icons = {
   calendar: (
     <path d="M8 3v4M16 3v4M3 10h18M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" />
   ),
-  tasks: <path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01" />,
   stats: <path d="M3 17l6-6 4 4 8-8M15 7h6v6" />,
 }
 
@@ -32,8 +31,7 @@ function Icon({ name }) {
 const NAV_ITEMS = [
   { id: 'habits', label: 'Hábitos', enabled: true },
   { id: 'calendar', label: 'Calendario Semanal', enabled: true },
-  { id: 'tasks', label: 'Lista de Tareas', enabled: false },
-  { id: 'stats', label: 'Estadísticas', enabled: false },
+  { id: 'stats', label: 'Estadísticas', enabled: true },
 ]
 
 export default function Sidebar({ activeSection, onNavigate }) {
