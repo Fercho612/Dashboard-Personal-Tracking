@@ -16,10 +16,11 @@ const DESCRIPTION_MAX = 120
 
 /**
  * Modal para crear (habit = null) o editar un hábito.
+ * `blockCount`: en cuántos bloques del calendario está el hábito; se muestra al pedir borrarlo.
  * Usa el elemento nativo <dialog>: con showModal() el navegador ya resuelve el fondo
  * oscuro, que el foco no se escape del modal y el cierre con la tecla Esc.
  */
-export default function HabitFormModal({ habit, onSave, onDelete, onClose }) {
+export default function HabitFormModal({ habit, blockCount = 0, onSave, onDelete, onClose }) {
   const isEditing = habit !== null
   const dialogRef = useRef(null)
 
@@ -170,7 +171,10 @@ export default function HabitFormModal({ habit, onSave, onDelete, onClose }) {
           )}
           {isConfirmingDelete && (
             <div className="confirm-delete">
-              <span>¿Borrar el hábito y todo su historial?</span>
+              <span>
+                ¿Borrar el hábito y todo su historial?
+                {blockCount > 0 && ` Está en ${blockCount} ${blockCount === 1 ? 'bloque' : 'bloques'} del calendario.`}
+              </span>
               <button type="button" className="btn btn--danger" onClick={() => onDelete(habit.id)}>
                 Sí, borrar
               </button>

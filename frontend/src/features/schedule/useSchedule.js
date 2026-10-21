@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { migrateScheduleFromV1, normalizeHabitIds } from './scheduleUtils.js'
+import {
+  countBlocksWithHabit,
+  migrateScheduleFromV1,
+  normalizeHabitIds,
+  removeHabitFromBlocks,
+} from './scheduleUtils.js'
 
 // v2: los bloques tienen `habitIds`. La clave v1 se lee solo para migrar y nunca se modifica,
 // así queda como respaldo si algo sale mal (constitución 5).
@@ -33,10 +38,13 @@ function parseSavedState(raw) {
 }
 
 /**
- * Orden de lectura: primero v2; si no existe, se migra v1; si tampoco, estado inicial.
+ * Lee lo guardado. Orden: primero v2; si no existe, se migra v1.
+ * Devuelve null si no hay nada guardado o el JSON está corrupto (a diferencia de loadState,
+ * que en ese caso arranca con el estado inicial): quien necesite MODIFICAR lo guardado
+ * usa esto para no pisar con datos inventados un JSON que todavía se podría recuperar.
  * Leer no escribe: lo migrado recién se guarda (como v2) tras la primera acción del usuario.
  */
-export function loadState() {
+function readSavedState() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (raw) {
@@ -45,10 +53,32 @@ export function loadState() {
     }
     const legacyRaw = localStorage.getItem(LEGACY_STORAGE_KEY)
     if (legacyRaw) return migrateScheduleFromV1(parseSavedState(legacyRaw))
-    return createInitialState()
+    return null
   } catch {
-    return createInitialState()
+    return null
   }
+}
+
+export function loadState() {
+  return readSavedState() ?? createInitialState()
+}
+
+// En cuántos bloques guardados está el hábito (para avisar antes de borrarlo desde Hábitos).
+export function countSavedBlocksWithHabit(habitId) {
+  const saved = readSavedState()
+  return saved ? countBlocksWithHabit(saved.blocks, habitId) : 0
+}
+
+/**
+ * Quita un hábito de todos los bloques guardados. Se llama cuando se borra el hábito desde la
+ * sección Hábitos. Solo escribe si hay algo que quitar: sin calendario guardado, con el JSON
+ * corrupto o si el hábito no está en ningún bloque, no toca el almacenamiento.
+ */
+export function removeHabitFromSavedSchedule(habitId) {
+  const saved = readSavedState()
+  if (!saved || countBlocksWithHabit(saved.blocks, habitId) === 0) return
+  const next = { ...saved, blocks: removeHabitFromBlocks(saved.blocks, habitId) }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
 }
 
 /**

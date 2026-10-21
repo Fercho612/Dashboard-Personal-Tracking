@@ -26,7 +26,7 @@ Tareas redactadas con asistencia de IA (Claude). Una por vez: tests primero (en 
 - [x] **T8. Drawer: aviso "No le toca este día" y estado sin hábitos con "Ir a Hábitos" (`App` pasa `onNavigate` a `SchedulePage`).** RF-6, RF-8
   - Hecho cuando: un hábito de L-M-V en un bloque del martes muestra el aviso y deja guardar; si se cambia el día del bloque a lunes, el aviso desaparece; sin hábitos, "Ir a Hábitos" cierra el drawer y abre la sección Hábitos.
 
-- [ ] **T9. Borrar un hábito: la confirmación dice en cuántos bloques está, y al confirmar se quita del calendario guardado (`removeHabitFromSavedSchedule`).** RF-12, RF-13, RF-14
+- [x] **T9. Borrar un hábito: la confirmación dice en cuántos bloques está, y al confirmar se quita del calendario guardado (`removeHabitFromSavedSchedule`).** RF-12, RF-13, RF-14
   - Hecho cuando: con un hábito en 2 bloques, la confirmación dice "Está en 2 bloques del calendario."; tras borrarlo, el calendario no lo muestra y los bloques siguen; con el calendario guardado corrupto, borrar el hábito no lo modifica.
 
 - [ ] **T10. Verificación final y cierre de la spec.** RNF-3, RNF-4, RF-14
