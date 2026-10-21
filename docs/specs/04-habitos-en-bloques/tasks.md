@@ -23,7 +23,7 @@ Tareas redactadas con asistencia de IA (Claude). Una por vez: tests primero (en 
 - [x] **T7. Drawer: "Agregar hábito:" + botón verde `+` (`.btn--success`), `<select>` que agrega de a un hábito y se oculta; `+` deshabilitado cuando no quedan hábitos.** RF-1, RF-2, RF-3, RF-7, RF-9, RNF-3
   - Hecho cuando: se pueden agregar dos hábitos uno tras otro, ya sea con el mouse o con el teclado, y aparecen en ese orden; el mismo hábito se puede asignar en dos bloques distintos; con todos asignados, el `+` está deshabilitado y aparece el mensaje.
 
-- [ ] **T8. Drawer: aviso "No le toca este día" y estado sin hábitos con "Ir a Hábitos" (`App` pasa `onNavigate` a `SchedulePage`).** RF-6, RF-8
+- [x] **T8. Drawer: aviso "No le toca este día" y estado sin hábitos con "Ir a Hábitos" (`App` pasa `onNavigate` a `SchedulePage`).** RF-6, RF-8
   - Hecho cuando: un hábito de L-M-V en un bloque del martes muestra el aviso y deja guardar; si se cambia el día del bloque a lunes, el aviso desaparece; sin hábitos, "Ir a Hábitos" cierra el drawer y abre la sección Hábitos.
 
 - [ ] **T9. Borrar un hábito: la confirmación dice en cuántos bloques está, y al confirmar se quita del calendario guardado (`removeHabitFromSavedSchedule`).** RF-12, RF-13, RF-14

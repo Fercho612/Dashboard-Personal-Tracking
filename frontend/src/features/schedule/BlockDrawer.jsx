@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { isScheduledOnWeekday } from '../habits/habitStats.js'
 import { getCategoryColor } from './palette.js'
 import {
   DAY_INITIALS,
@@ -17,9 +18,22 @@ const TITLE_MAX = 60
  * Panel lateral para crear o editar un bloque.
  * - `block`: el bloque a editar, o null para crear uno nuevo.
  * - `draft`: valores iniciales al crear ({ day, start, end }), p. ej. desde un clic en la grilla.
+ * - `habits`: los hábitos existentes (solo lectura), para asignarlos al bloque.
+ * - `onGoToHabits`: lleva a la sección Hábitos (cuando todavía no hay ninguno).
  * Es el mismo <dialog> nativo que el modal de hábitos, con estilo de drawer.
  */
-export default function BlockDrawer({ block, draft, blocks, categories, habits, settings, onSave, onDelete, onClose }) {
+export default function BlockDrawer({
+  block,
+  draft,
+  blocks,
+  categories,
+  habits,
+  settings,
+  onSave,
+  onDelete,
+  onClose,
+  onGoToHabits,
+}) {
   const isEditing = block !== null
   const initial = block ?? draft
   const dialogRef = useRef(null)
@@ -193,6 +207,10 @@ export default function BlockDrawer({ block, draft, blocks, categories, habits, 
               {assignedHabits.map((habit) => (
                 <li key={habit.id} className="habit-list__item">
                   <span className="habit-list__name">{habit.name}</span>
+                  {/* Aviso, no error: se puede guardar igual. Usa `day`, así que se recalcula al cambiar el día. */}
+                  {!isScheduledOnWeekday(habit, day) && (
+                    <span className="habit-list__warning">No le toca este día</span>
+                  )}
                   <button
                     type="button"
                     className="icon-btn"
@@ -205,6 +223,15 @@ export default function BlockDrawer({ block, draft, blocks, categories, habits, 
                 </li>
               ))}
             </ul>
+          )}
+
+          {habits.length === 0 && (
+            <div className="habit-empty">
+              <p className="field__hint">Todavía no tienes hábitos.</p>
+              <button type="button" className="btn btn--ghost btn--small" onClick={onGoToHabits}>
+                Ir a Hábitos
+              </button>
+            </div>
           )}
 
           {habits.length > 0 && (

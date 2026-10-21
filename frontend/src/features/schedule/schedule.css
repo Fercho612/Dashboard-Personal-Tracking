@@ -267,6 +267,24 @@
   background: var(--color-surface-1);
 }
 
+/* Ámbar claro: es un aviso, no un error (los errores usan --color-danger) */
+.habit-list__warning {
+  color: #fbbf24;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+.habit-empty {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.habit-empty p {
+  margin: 0;
+}
+
 /* Fila «Agregar hábito:» + botón verde */
 .habit-add {
   display: flex;

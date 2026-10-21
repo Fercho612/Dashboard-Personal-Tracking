@@ -12,7 +12,7 @@ import './schedule.css'
 
 const DEFAULT_DURATION = 60
 
-export default function SchedulePage() {
+export default function SchedulePage({ onNavigate }) {
   const {
     blocks,
     categories,
@@ -132,6 +132,8 @@ export default function SchedulePage() {
           onSave={handleSave}
           onDelete={handleDelete}
           onClose={() => setDrawer(null)}
+          // Navegar desmonta esta página y con ella el panel: lo escrito sin guardar se descarta.
+          onGoToHabits={() => onNavigate('habits')}
         />
       )}
 
