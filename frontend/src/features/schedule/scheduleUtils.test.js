@@ -4,6 +4,8 @@ import {
   buildTimeOptions,
   findOverlap,
   formatDuration,
+  getAssignableHabits,
+  getAssignedHabits,
   getBlocksOutsideRange,
   getMinutesByCategory,
   getResizeBounds,
@@ -180,5 +182,44 @@ describe('categorías', () => {
     const { total, byCategory } = getMinutesByCategory(blocks, categories)
     expect(total).toBe(210)
     expect(byCategory.map((item) => item.minutes)).toEqual([150, 60])
+  })
+})
+
+// Hábitos de ejemplo, en el orden en que existen en la sección Hábitos
+const HABITS = [
+  { id: 'h1', name: 'Meditar' },
+  { id: 'h2', name: 'Leer' },
+  { id: 'h3', name: 'Gym' },
+]
+
+describe('getAssignedHabits', () => {
+  it('devuelve los hábitos en el orden en que se asignaron', () => {
+    expect(getAssignedHabits(['h3', 'h1'], HABITS).map((habit) => habit.name)).toEqual(['Gym', 'Meditar'])
+  })
+
+  it('ignora los ids de hábitos que ya no existen', () => {
+    expect(getAssignedHabits(['borrado', 'h2'], HABITS).map((habit) => habit.id)).toEqual(['h2'])
+  })
+
+  it('sin hábitos asignados devuelve una lista vacía', () => {
+    expect(getAssignedHabits([], HABITS)).toEqual([])
+  })
+})
+
+describe('getAssignableHabits', () => {
+  it('devuelve los no asignados, en el orden de la lista de hábitos', () => {
+    expect(getAssignableHabits(['h2'], HABITS).map((habit) => habit.id)).toEqual(['h1', 'h3'])
+  })
+
+  it('sin hábitos asignados se pueden agregar todos', () => {
+    expect(getAssignableHabits([], HABITS)).toEqual(HABITS)
+  })
+
+  it('con todos asignados no queda ninguno para agregar', () => {
+    expect(getAssignableHabits(['h1', 'h2', 'h3'], HABITS)).toEqual([])
+  })
+
+  it('sin hábitos creados no hay nada para agregar', () => {
+    expect(getAssignableHabits([], [])).toEqual([])
   })
 })

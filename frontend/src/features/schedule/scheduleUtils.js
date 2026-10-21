@@ -136,3 +136,21 @@ export function getMinutesByCategory(blocks, categories) {
   const total = blocks.reduce((sum, block) => sum + (block.end - block.start), 0)
   return { total, byCategory }
 }
+
+// --- Hábitos asignados a un bloque (spec 04) ---
+
+/**
+ * Hábitos asignados a un bloque, en el orden en que se asignaron.
+ * Si un id ya no corresponde a ningún hábito (se borró), se ignora: no se muestra
+ * y no rompe nada.
+ */
+export function getAssignedHabits(habitIds, habits) {
+  return habitIds
+    .map((habitId) => habits.find((habit) => habit.id === habitId))
+    .filter((habit) => habit !== undefined)
+}
+
+// Hábitos que todavía se pueden agregar al bloque, en el orden de la lista de hábitos.
+export function getAssignableHabits(habitIds, habits) {
+  return habits.filter((habit) => !habitIds.includes(habit.id))
+}

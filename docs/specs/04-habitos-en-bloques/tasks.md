@@ -5,7 +5,7 @@ Tareas redactadas con asistencia de IA (Claude). Una por vez: tests primero (en 
 - [x] **T1. `isScheduledOnWeekday(habit, weekday)` en `habitStats.js`; `isScheduledOn` la usa por dentro.** RF-6
   - Hecho cuando: hay tests para `daily`, para un día incluido y para uno no incluido en `weekdays`, y todos los tests de Hábitos y de Estadísticas siguen en verde.
 
-- [ ] **T2. `getAssignedHabits` y `getAssignableHabits` en `scheduleUtils.js`.** RF-2, RF-3, RF-9, RF-11, RNF-2
+- [x] **T2. `getAssignedHabits` y `getAssignableHabits` en `scheduleUtils.js`.** RF-2, RF-3, RF-9, RF-11, RNF-2
   - Hecho cuando: hay tests que cubren el orden de asignación, los ids de hábitos inexistentes ignorados, la lista vacía y el caso "todos asignados" (→ `[]`).
 
 - [ ] **T3. `countBlocksWithHabit`, `removeHabitFromBlocks` y `migrateScheduleFromV1` en `scheduleUtils.js`.** RF-12, RF-13, RNF-1
