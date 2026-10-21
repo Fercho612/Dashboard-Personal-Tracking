@@ -4,6 +4,7 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 - v1 funcionando: Agregar y Registrar habitos, mostrar un progreso del mismo.
 - Calendario semanal (en `main`): plantilla fija de bloques, categorías creables, franja configurable, redimensionado y resumen de horas.
 - Datos en localStorage.
+- Spec `docs/specs/04-habitos-en-bloques.md` **aprobada** (2026-10-21): asignar hábitos existentes a bloques como referencia visual, visibles solo en el panel del bloque (no en la grilla). El selector agrega de a un hábito; botón "+" en verde (`--color-success`). Plan **aprobado** (calendario pasa a la clave `.v2` con migración y `useSchedule` deja de escribir al montar). Tareas T1–T10 en `docs/specs/04-habitos-en-bloques/tasks.md`, aprobadas, en la rama `feature/habitos-en-bloques`. T1 hecha (sin commitear); sigue T2.
 - Estadísticas (rama `feature/estadisticas`, **sin commitear ni mergear**): solo hábitos, selector Semana/Mes/90 días, filtro por hábito, matriz de 17 semanas, barras y ranking. Spec `docs/specs/03-estadisticas-semanales.md` (implementada, pendiente de revisión del dueño); plan y tareas en su carpeta.
 ## Decisiones (y por qué)
 - LocalStorage: Momentaneo hasta implementar back.
