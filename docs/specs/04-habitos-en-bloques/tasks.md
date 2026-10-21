@@ -29,5 +29,32 @@ Tareas redactadas con asistencia de IA (Claude). Una por vez: tests primero (en 
 - [x] **T9. Borrar un hábito: la confirmación dice en cuántos bloques está, y al confirmar se quita del calendario guardado (`removeHabitFromSavedSchedule`).** RF-12, RF-13, RF-14
   - Hecho cuando: con un hábito en 2 bloques, la confirmación dice "Está en 2 bloques del calendario."; tras borrarlo, el calendario no lo muestra y los bloques siguen; con el calendario guardado corrupto, borrar el hábito no lo modifica.
 
-- [ ] **T10. Verificación final y cierre de la spec.** RNF-3, RNF-4, RF-14
+- [x] **T10. Verificación final y cierre de la spec.** RNF-3, RNF-4, RF-14
   - Hecho cuando: `npm run build` y `npm test` están en verde; el panel se puede usar a 400px sin scroll horizontal; la matriz de Hábitos y las Estadísticas no cambian al asignar o quitar hábitos; los criterios de finalización de la spec quedan marcados con la verificación documentada.
+
+## Verificación realizada
+- `npm test`: 121 tests en verde (18 nuevos: `isScheduledOnWeekday`, hábitos asignados y asignables,
+  conteo, quitar de bloques, migración y normalización de `habitIds`). `npm run build` sin errores.
+  `package.json` sin cambios.
+- Pruebas automatizadas en Edge headless (script por DevTools, sin instalar nada), una por tarea:
+  - **T4/T5:** un JSON corrupto no se pisa al abrir el calendario; migración v1 → v2 con v1 intacta;
+    v2 corrupto no rompe; un bloque sin `habitIds` se normaliza. La prueba de T4 se corrió también
+    sin el arreglo y falló, para confirmar que detecta el defecto.
+  - **T6:** lista, quitar, cancelar descarta, guardar persiste tras recargar, id de hábito borrado ignorado.
+  - **T7:** botón verde `#10b981` con «+», opciones de a uno, orden de asignación, mouse y teclado
+    (Enter), el mismo hábito en dos bloques, «+» deshabilitado con todos asignados.
+  - **T8:** aviso «No le toca este día» (se recalcula al cambiar el día, y se puede guardar igual);
+    sin hábitos, «Ir a Hábitos» abre Hábitos sin guardar nada.
+  - **T9:** «Está en N bloque(s) del calendario.», quita el hábito de todos los bloques sin tocarlos,
+    sin escribir si no hay nada que quitar, con el calendario corrupto o con solo v1.
+  - **T10:** los hábitos y registros guardados no cambian al asignar o quitar (RF-14) y Estadísticas
+    muestra exactamente lo mismo; a 400 px el panel ocupa todo el ancho, sin scroll horizontal, con
+    un nombre de hábito muy largo y con las opciones abiertas.
+
+### Decisiones tomadas durante la implementación
+- **Botones en vez de `<select>`** para elegir el hábito (ver `plan.md`): las flechas del teclado
+  cambian el valor de un `<select>` sin confirmar.
+- **`readSavedState` aparte de `loadState`:** leer para modificar (borrar un hábito) devuelve `null`
+  si no hay nada o está corrupto, en vez del estado inicial, para no pisar datos recuperables.
+- **`addBlock` pone `habitIds: []` por defecto**, para que todo bloque guardado cumpla el formato v2.
+- **Botón verde con texto oscuro:** el blanco sobre `#10b981` no tiene buen contraste.

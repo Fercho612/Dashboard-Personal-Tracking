@@ -1,5 +1,5 @@
 # Spec 04 — Hábitos en bloques
-Estado: aprobada
+Estado: implementada
 
 > Spec redactada con asistencia de IA (Claude) a partir de las respuestas del dueño.
 
@@ -60,15 +60,15 @@ El dueño del dashboard, como único usuario, que planifica su semana y registra
 - Mostrar los hábitos o el botón de agregar dentro de los bloques de la grilla.
 
 ## Criterios de finalización
-- [ ] Puedo asignar y quitar hábitos desde el panel de un bloque, y al recargar siguen ahí.
-- [ ] Cancelar el panel descarta los cambios de hábitos.
-- [ ] El panel muestra "Agregar hábito:" con el botón verde "+"; la grilla se ve igual que antes.
-- [ ] Asignar un hábito a un día en que no le toca muestra el aviso y permite guardar.
-- [ ] Borrar un hábito asignado avisa cuántos bloques tiene y lo quita de todos ellos.
-- [ ] Sin hábitos creados, aparece el mensaje con el acceso a la sección Hábitos.
-- [ ] Los datos de calendario anteriores cargan sin errores.
-- [ ] La matriz de Hábitos y las Estadísticas no cambian al asignar o quitar.
-- [ ] Build y tests en verde.
+- [x] Puedo asignar y quitar hábitos desde el panel de un bloque, y al recargar siguen ahí.
+- [x] Cancelar el panel descarta los cambios de hábitos.
+- [x] El panel muestra "Agregar hábito:" con el botón verde "+"; la grilla se ve igual que antes.
+- [x] Asignar un hábito a un día en que no le toca muestra el aviso y permite guardar.
+- [x] Borrar un hábito asignado avisa cuántos bloques tiene y lo quita de todos ellos.
+- [x] Sin hábitos creados, aparece el mensaje con el acceso a la sección Hábitos.
+- [x] Los datos de calendario anteriores cargan sin errores.
+- [x] La matriz de Hábitos y las Estadísticas no cambian al asignar o quitar.
+- [x] Build y tests en verde.
 
 ## Dudas abiertas
 - Ninguna. (Resuelta: el selector agrega los hábitos de a uno.)
