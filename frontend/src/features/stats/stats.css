@@ -1,0 +1,309 @@
+/* ---------- Página de estadísticas ---------- */
+
+.stats-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  max-width: 72rem;
+}
+
+.stats-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.stats-controls .segmented {
+  flex-wrap: wrap;
+}
+
+.stats-controls .segmented__option {
+  white-space: nowrap;
+}
+
+.stats-controls__habit {
+  width: auto;
+  min-width: 11rem;
+  max-width: 100%;
+}
+
+/* ---------- Tarjetas de resumen ---------- */
+
+.stats-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
+.stats-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.stats-card__label {
+  margin: 0;
+  color: var(--text-medium);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.stats-card__value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.stats-card__text {
+  margin: 0;
+  color: var(--text-medium);
+  font-size: 0.875rem;
+}
+
+.stats-card__hint {
+  margin: var(--space-xs) 0 0;
+  color: var(--color-success-soft);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Barra de progreso horizontal (tarjeta de cumplimiento y ranking) */
+.stats-progress {
+  height: 0.5rem;
+  margin-top: var(--space-sm);
+  border-radius: var(--radius-full);
+  background: var(--color-surface-3);
+  overflow: hidden;
+}
+
+.stats-progress__fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: var(--color-success);
+}
+
+/* ---------- Matriz de consistencia ---------- */
+
+.stats-section__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.heat-legend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--text-medium);
+  font-size: 0.75rem;
+}
+
+.heat-legend .heat-cell {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.heat-legend li:nth-child(3) {
+  margin-left: var(--space-sm);
+}
+
+/* La matriz es lo único que puede hacer scroll horizontal en pantallas angostas */
+.heat__scroll {
+  overflow-x: auto;
+  padding-bottom: var(--space-xs);
+}
+
+/* min-width: en pantallas angostas la matriz scrollea; max-width: en las anchas las celdas no se agrandan de más */
+.heat {
+  min-width: 19rem;
+  max-width: 42rem;
+}
+
+.heat__months,
+.heat__grid {
+  display: grid;
+  grid-template-columns: repeat(17, minmax(0, 1fr));
+  gap: 3px;
+}
+
+.heat__months {
+  margin-bottom: var(--space-xs);
+  color: var(--text-medium);
+  font-size: 0.75rem;
+  text-transform: capitalize;
+}
+
+.heat__months span {
+  white-space: nowrap;
+}
+
+.heat__week {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.heat-cell {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+}
+
+button.heat-cell:hover {
+  outline: 2px solid var(--text-medium);
+}
+
+button.heat-cell:focus-visible {
+  outline: 2px solid var(--color-primary-soft);
+  outline-offset: 1px;
+}
+
+/* Sin oportunidades o día futuro: borde punteado, distinto del 0 % */
+.heat-cell--none {
+  background: transparent;
+  border: 1px dashed var(--border-strong);
+}
+
+.heat-cell--0 {
+  background: var(--color-surface-3);
+}
+
+.heat-cell--1 {
+  background: rgba(16, 185, 129, 0.3);
+}
+
+.heat-cell--2 {
+  background: rgba(16, 185, 129, 0.5);
+}
+
+.heat-cell--3 {
+  background: rgba(16, 185, 129, 0.75);
+}
+
+.heat-cell--4 {
+  background: var(--color-success-soft);
+}
+
+.heat__detail {
+  min-height: 1.5rem;
+  margin: var(--space-md) 0 0;
+  color: var(--text-medium);
+  font-size: 0.875rem;
+}
+
+/* La fecha viene en minúsculas ("miércoles, 21 de octubre"): solo la primera letra va en mayúscula */
+.heat__detail::first-letter {
+  text-transform: uppercase;
+}
+
+/* ---------- Barras y ranking ---------- */
+
+.stats-bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: var(--space-lg);
+}
+
+.bars {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-sm);
+  height: 15rem;
+  margin: var(--space-md) 0 0;
+  padding: 0 0 var(--space-xs);
+  list-style: none;
+  /* Con muchas barras (mes, 90 días) en pantallas angostas, el gráfico scrollea dentro de su tarjeta */
+  overflow-x: auto;
+}
+
+.bars__item {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  min-width: 2.75rem; /* evita que las etiquetas de barras vecinas se pisen */
+}
+
+.bars__value,
+.bars__label {
+  color: var(--text-medium);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.bars__track {
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+  width: 100%;
+  max-width: 3rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.bars__fill {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary-soft);
+}
+
+.ranking {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin: var(--space-md) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ranking__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.ranking__name {
+  min-width: 0;
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ranking__numbers {
+  flex-shrink: 0;
+  color: var(--text-medium);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.ranking__numbers strong {
+  color: var(--text-high);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 768px) {
+  .stats-cards,
+  .stats-bottom {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bars {
+    gap: var(--space-xs);
+  }
+}
