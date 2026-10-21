@@ -20,7 +20,7 @@ Tareas redactadas con asistencia de IA (Claude). Una por vez: tests primero (en 
 - [x] **T6. Drawer: sección "Hábitos" con la lista de asignados y botón `×` para quitar; los hábitos llegan desde `SchedulePage` (solo lectura); `habitIds` se guarda con el bloque y se descarta al cancelar.** RF-4, RF-5, RF-10, RF-11, RNF-3
   - Hecho cuando: con `habitIds` puestos a mano, el drawer los lista; quitar uno y guardar persiste el cambio tras recargar; quitar y cancelar no cambia nada; la grilla se ve igual que antes.
 
-- [ ] **T7. Drawer: "Agregar hábito:" + botón verde `+` (`.btn--success`), `<select>` que agrega de a un hábito y se oculta; `+` deshabilitado cuando no quedan hábitos.** RF-1, RF-2, RF-3, RF-7, RF-9, RNF-3
+- [x] **T7. Drawer: "Agregar hábito:" + botón verde `+` (`.btn--success`), `<select>` que agrega de a un hábito y se oculta; `+` deshabilitado cuando no quedan hábitos.** RF-1, RF-2, RF-3, RF-7, RF-9, RNF-3
   - Hecho cuando: se pueden agregar dos hábitos uno tras otro, ya sea con el mouse o con el teclado, y aparecen en ese orden; el mismo hábito se puede asignar en dos bloques distintos; con todos asignados, el `+` está deshabilitado y aparece el mensaje.
 
 - [ ] **T8. Drawer: aviso "No le toca este día" y estado sin hábitos con "Ir a Hábitos" (`App` pasa `onNavigate` a `SchedulePage`).** RF-6, RF-8

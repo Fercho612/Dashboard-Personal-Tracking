@@ -80,9 +80,9 @@ BlockDrawer, sección de hábitos:
   - Lista de hábitos asignados: nombre, aviso "No le toca este día" (si aplica) y botón `×` con
     `aria-label="Quitar <nombre> del bloque"` (RF-4, RNF-3).
   - Línea "Agregar hábito:" + botón verde `+` (`aria-label="Agregar hábito"`) (RF-1).
-  - Al pulsar `+` aparece un `<select>` con la opción vacía "Elige un hábito…" y los hábitos
-    asignables. Al elegir uno se agrega al final de la lista y el `<select>` se oculta (RF-2, RF-3).
-    Un botón "Cancelar" al lado lo oculta sin agregar nada.
+  - Al pulsar `+` aparece una fila de botones-píldora (clase `.chip`, ya existente), uno por hábito
+    asignable, con el foco en el primero. Al elegir uno se agrega al final de la lista, la fila se
+    oculta y el foco vuelve al `+` (RF-2, RF-3). Un botón "Cancelar" al lado la oculta sin agregar.
   - Sin hábitos creados: "Todavía no tienes hábitos" + botón "Ir a Hábitos". Si se pulsa, se
     cierra el drawer sin guardar y se navega a Hábitos con `onNavigate` (RF-8).
   - Todos asignados: el `+` queda deshabilitado y se muestra "Ya agregaste todos tus hábitos" (RF-9).
@@ -103,7 +103,7 @@ BlockDrawer, sección de hábitos:
 | Al borrar un hábito, Hábitos limpia el calendario guardado con una función exportada de `useSchedule.js` | Dejar ids colgados y solo ignorarlos al mostrar | RF-13 pide quitarlo de verdad. La persistencia sigue en los archivos `use*.js` (constitución 3) |
 | Calendario lee los hábitos con `loadState` de `useHabits.js` (solo lectura) | Usar `useHabits` | Ese hook expone acciones de escritura que el calendario no necesita (RF-14); igual que Estadísticas |
 | `isScheduledOnWeekday` en `habitStats.js` | Repetir la regla en `scheduleUtils.js` | El aviso de RF-6 tiene que coincidir siempre con lo que Hábitos considera "le toca" |
-| `<select>` nativo que aparece al pulsar `+` | Menú desplegable hecho a mano | Accesible con teclado sin código extra (RNF-3) y funciona bien a 400px (RNF-4) |
+| Fila de botones-píldora que aparece al pulsar `+` (cambio hecho en T7) | `<select>` nativo (decisión inicial) | Los `<select>` de Chromium cambian de valor con solo pulsar las flechas, sin confirmar: con teclado se agregaría un hábito sin querer (RNF-3). Los botones se eligen con Tab y Enter, y se acomodan en varias líneas a 400px (RNF-4) |
 
 ## Riesgos y cosas a vigilar
 - **Las dos secciones no conviven montadas:** `App` muestra una sección a la vez, así que al volver
@@ -111,7 +111,7 @@ BlockDrawer, sección de hábitos:
   juntas, esto hay que revisarlo.
 - **Calendario v2 corrupto al borrar un hábito:** no se escribe nada. El id queda colgado, pero no
   se ve (RNF-2) y no se pierden datos.
-- **Esc dentro del `<select>`** cierra el `<dialog>` entero (comportamiento nativo). Es aceptable:
+- **Esc con las opciones abiertas** cierra el `<dialog>` entero (comportamiento nativo). Es aceptable:
   se descarta todo, igual que al cancelar (RF-5).
 - **Cambios mínimos en Hábitos** (una función nueva en `habitStats`, un texto en el modal, la
   limpieza al borrar): los tests de Hábitos y de Estadísticas deben seguir en verde.

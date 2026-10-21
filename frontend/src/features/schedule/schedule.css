@@ -267,6 +267,51 @@
   background: var(--color-surface-1);
 }
 
+/* Fila «Agregar hábito:» + botón verde */
+.habit-add {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.habit-add__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Verde de «hecho» (--color-success). Texto oscuro: el blanco sobre este verde no tiene buen contraste. */
+.btn--success {
+  background: var(--color-success);
+  color: var(--color-bg);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.btn--success:hover:not(:disabled) {
+  background: var(--color-success-soft);
+  transform: translateY(-1px);
+}
+
+.btn--success:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.habit-add__button {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.habit-picker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
 /* min-width: 0 deja que un nombre largo se corte en vez de ensanchar el panel */
 .habit-list__name {
   flex: 1;
