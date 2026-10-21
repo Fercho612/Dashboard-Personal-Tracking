@@ -154,3 +154,31 @@ export function getAssignedHabits(habitIds, habits) {
 export function getAssignableHabits(habitIds, habits) {
   return habits.filter((habit) => !habitIds.includes(habit.id))
 }
+
+// En cuántos bloques está asignado un hábito (para avisar antes de borrarlo).
+export function countBlocksWithHabit(blocks, habitId) {
+  return blocks.filter((block) => block.habitIds.includes(habitId)).length
+}
+
+/**
+ * Quita un hábito de todos los bloques. Devuelve un array nuevo (inmutabilidad):
+ * los bloques que no lo tenían se devuelven tal cual, sin copiarlos.
+ */
+export function removeHabitFromBlocks(blocks, habitId) {
+  return blocks.map((block) =>
+    block.habitIds.includes(habitId)
+      ? { ...block, habitIds: block.habitIds.filter((id) => id !== habitId) }
+      : block,
+  )
+}
+
+/**
+ * Migración del formato guardado v1 → v2: en v1 los bloques no tenían hábitos,
+ * así que cada uno empieza con `habitIds` vacío. Categorías y ajustes no cambian.
+ */
+export function migrateScheduleFromV1(saved) {
+  return {
+    ...saved,
+    blocks: saved.blocks.map((block) => ({ ...block, habitIds: [] })),
+  }
+}

@@ -8,7 +8,7 @@ Tareas redactadas con asistencia de IA (Claude). Una por vez: tests primero (en 
 - [x] **T2. `getAssignedHabits` y `getAssignableHabits` en `scheduleUtils.js`.** RF-2, RF-3, RF-9, RF-11, RNF-2
   - Hecho cuando: hay tests que cubren el orden de asignación, los ids de hábitos inexistentes ignorados, la lista vacía y el caso "todos asignados" (→ `[]`).
 
-- [ ] **T3. `countBlocksWithHabit`, `removeHabitFromBlocks` y `migrateScheduleFromV1` en `scheduleUtils.js`.** RF-12, RF-13, RNF-1
+- [x] **T3. `countBlocksWithHabit`, `removeHabitFromBlocks` y `migrateScheduleFromV1` en `scheduleUtils.js`.** RF-12, RF-13, RNF-1
   - Hecho cuando: hay tests que comprueban que el conteo da 0, 1 y N, que quitar un hábito no cambia los demás campos ni los otros bloques, y que la migración agrega `habitIds: []` sin perder categorías ni ajustes.
 
 - [ ] **T4. `useSchedule` escribe solo después de la primera acción del usuario (`hasUserChanged` + `update`, como `useHabits`).** Constitución 5
