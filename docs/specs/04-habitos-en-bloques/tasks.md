@@ -11,7 +11,7 @@ Tareas redactadas con asistencia de IA (Claude). Una por vez: tests primero (en 
 - [x] **T3. `countBlocksWithHabit`, `removeHabitFromBlocks` y `migrateScheduleFromV1` en `scheduleUtils.js`.** RF-12, RF-13, RNF-1
   - Hecho cuando: hay tests que comprueban que el conteo da 0, 1 y N, que quitar un hábito no cambia los demás campos ni los otros bloques, y que la migración agrega `habitIds: []` sin perder categorías ni ajustes.
 
-- [ ] **T4. `useSchedule` escribe solo después de la primera acción del usuario (`hasUserChanged` + `update`, como `useHabits`).** Constitución 5
+- [x] **T4. `useSchedule` escribe solo después de la primera acción del usuario (`hasUserChanged` + `update`, como `useHabits`).** Constitución 5
   - Hecho cuando: al abrir el calendario con un JSON guardado corrupto, el valor guardado no cambia; tras crear un bloque, sí se guarda. Commit aparte `fix:`.
 
 - [ ] **T5. Clave `dashboard.schedule.v2`: carga v2, o migra v1, o arranca con el estado inicial; normaliza `habitIds`; exporta `loadState`.** RNF-1, RNF-2

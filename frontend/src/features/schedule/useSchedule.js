@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const STORAGE_KEY = 'dashboard.schedule.v1'
 
@@ -41,7 +41,18 @@ function loadState() {
 export function useSchedule() {
   const [state, setState] = useState(loadState)
 
+  // Solo se escribe después de la primera acción del usuario: si el JSON guardado
+  // estaba corrupto, abrir el calendario no lo pisa con el estado inicial (constitución 5).
+  const hasUserChanged = useRef(false)
+
+  // Toda acción que modifique el estado debe pasar por aquí, no por setState directo.
+  function update(updater) {
+    hasUserChanged.current = true
+    setState(updater)
+  }
+
   useEffect(() => {
+    if (!hasUserChanged.current) return
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
   }, [state])
 
@@ -49,29 +60,29 @@ export function useSchedule() {
 
   function addBlock(data) {
     const block = { id: crypto.randomUUID(), ...data }
-    setState((prev) => ({ ...prev, blocks: [...prev.blocks, block] }))
+    update((prev) => ({ ...prev, blocks: [...prev.blocks, block] }))
   }
 
   function updateBlock(id, changes) {
-    setState((prev) => ({
+    update((prev) => ({
       ...prev,
       blocks: prev.blocks.map((block) => (block.id === id ? { ...block, ...changes } : block)),
     }))
   }
 
   function deleteBlock(id) {
-    setState((prev) => ({ ...prev, blocks: prev.blocks.filter((block) => block.id !== id) }))
+    update((prev) => ({ ...prev, blocks: prev.blocks.filter((block) => block.id !== id) }))
   }
 
   // --- Categorías ---
 
   function addCategory(data) {
     const category = { id: crypto.randomUUID(), ...data }
-    setState((prev) => ({ ...prev, categories: [...prev.categories, category] }))
+    update((prev) => ({ ...prev, categories: [...prev.categories, category] }))
   }
 
   function updateCategory(id, changes) {
-    setState((prev) => ({
+    update((prev) => ({
       ...prev,
       categories: prev.categories.map((category) =>
         category.id === id ? { ...category, ...changes } : category,
@@ -80,7 +91,7 @@ export function useSchedule() {
   }
 
   function deleteCategory(id) {
-    setState((prev) => ({
+    update((prev) => ({
       ...prev,
       categories: prev.categories.filter((category) => category.id !== id),
     }))
@@ -89,7 +100,7 @@ export function useSchedule() {
   // --- Ajustes ---
 
   function updateSettings(changes) {
-    setState((prev) => ({ ...prev, settings: { ...prev.settings, ...changes } }))
+    update((prev) => ({ ...prev, settings: { ...prev.settings, ...changes } }))
   }
 
   return {
