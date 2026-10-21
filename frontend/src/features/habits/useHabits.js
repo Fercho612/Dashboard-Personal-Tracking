@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const STORAGE_KEY = 'dashboard.habits.v1'
 const EMPTY_STATE = { habits: [], completions: {} }
@@ -27,9 +27,19 @@ export function useHabits() {
   // Inicialización "perezosa": la función se ejecuta una sola vez, en el primer render.
   const [state, setState] = useState(loadState)
 
+  // Solo se escribe después de la primera acción del usuario: si el JSON guardado
+  // estaba corrupto, montar la app no lo pisa con el estado vacío.
+  const hasUserChanged = useRef(false)
+
+  function update(updater) {
+    hasUserChanged.current = true
+    setState(updater)
+  }
+
   // useEffect se ejecuta después de cada render en el que `state` cambió:
   // es el lugar indicado para efectos secundarios como escribir en localStorage.
   useEffect(() => {
+    if (!hasUserChanged.current) return
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
   }, [state])
 
@@ -38,18 +48,18 @@ export function useHabits() {
 
   function addHabit({ name, description, frequency }, createdAt) {
     const habit = { id: crypto.randomUUID(), name, description, frequency, createdAt }
-    setState((prev) => ({ ...prev, habits: [...prev.habits, habit] }))
+    update((prev) => ({ ...prev, habits: [...prev.habits, habit] }))
   }
 
   function updateHabit(id, changes) {
-    setState((prev) => ({
+    update((prev) => ({
       ...prev,
       habits: prev.habits.map((habit) => (habit.id === id ? { ...habit, ...changes } : habit)),
     }))
   }
 
   function deleteHabit(id) {
-    setState((prev) => {
+    update((prev) => {
       // Sacamos la entrada `id` de completions y nos quedamos con el resto.
       const { [id]: _removed, ...remainingCompletions } = prev.completions
       return {
@@ -61,7 +71,7 @@ export function useHabits() {
 
   // Marca el día si no estaba hecho, o lo desmarca si ya estaba.
   function toggleCompletion(habitId, dateKey) {
-    setState((prev) => {
+    update((prev) => {
       const days = prev.completions[habitId] ?? []
       const nextDays = days.includes(dateKey)
         ? days.filter((day) => day !== dateKey)

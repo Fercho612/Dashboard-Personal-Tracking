@@ -17,6 +17,7 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 ## Aprendizajes y errores a evitar
 - Fechas siempre en hora local (`lib/dates.js`); nunca `toISOString()`, porque corre el día por UTC.
 - Estadísticas lee los datos con `useStatsData` (solo lectura); no usar `useHabits` ahí.
+- `useHabits` solo escribe en localStorage después de la primera acción del usuario (`hasUserChanged`): así un JSON corrupto no se pisa al montar la app (constitución 5). Toda acción que modifique el estado debe pasar por `update`, no por `setState`.
 - Edge headless tiene un ancho mínimo de ~492px: para probar en móvil, usar un iframe de 400px.
 - Los CSS globales se importan primero (`main.jsx`); si no, el orden del bundle hace que pisen a los de cada sección.
 - `showModal()` enfoca el primer elemento del <dialog>: para enfocar otro, hacerlo con un ref después de abrirlo.
@@ -24,6 +25,5 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 ## Próximos pasos
 - Decidir si se ajusta la paleta (índigo/violeta y rosa/coral se confunden).
 - Revisar Estadísticas, commitear por pasos y abrir el PR a `main`.
-- `useHabits` pisa un JSON corrupto al montarse (choca con constitución 5): arreglar aparte; Estadísticas lee sin escribir.
 - Decisión: no habrá lista de tareas; no reintroducirla.
 - Las specs van en `docs/specs/NN-nombre.md` (la constitución manda sobre la ruta `specs/` de la skill sdd).

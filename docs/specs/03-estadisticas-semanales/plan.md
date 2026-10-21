@@ -86,15 +86,15 @@ getBars('month' | '90days'): semanas de lunes a domingo recortadas al rango; eti
 | Decisión | Alternativa descartada | Por qué |
 |---|---|---|
 | Barras, matriz y ranking con HTML/CSS a mano | Chart.js | Son barras y cuadrículas simples; evita una dependencia (constitución 1, RNF-7) |
-| Lectura de datos con un hook propio de solo lectura (`useStatsData`) | Reutilizar `useHabits` | `useHabits` escribe en `localStorage` en cada montaje, lo que pisaría un JSON corrupto (RF-22, RF-23, constitución 5) |
+| Lectura de datos con un hook propio de solo lectura (`useStatsData`) | Reutilizar `useHabits` | `useHabits` escribía en `localStorage` en cada montaje (ya corregido) y es más hook del que hace falta para solo leer (RF-22, RF-23, constitución 5) |
 | Detalle de la matriz en una línea fija bajo la grilla (hover y foco) | Tooltip flotante | Funciona igual con mouse, teclado y táctil, y no necesita posicionamiento |
 | Un solo `getDayStats` que usan tarjetas, barras, matriz y ranking | Un cálculo distinto por panel | Todos los paneles coinciden entre sí, y las reglas de «hoy» y «futuro» viven en un solo lugar |
 | Filtro de hábito = filtrar la lista `habits` antes de calcular | Parámetro `habitId` en cada función | Las funciones no cambian: reciben menos hábitos |
 | Período y filtro en `useState` de la página | Guardarlos en `localStorage` | La spec los deja fuera de alcance |
 
 ## Riesgos y cosas a vigilar
-- **Hábitos pisa JSON corrupto:** `useHabits` hoy sobrescribe un JSON corrupto al montarse. No es
-  parte de esta spec, pero choca con la constitución (principio 5). Se propone como spec o fix aparte.
+- **Hábitos pisa JSON corrupto:** *(resuelto)* `useHabits` sobrescribía un JSON corrupto al
+  montarse. Se corrigió aparte: ahora solo guarda tras la primera acción del usuario.
 - **Dos cambios mínimos en código de Hábitos** (exportar dos funciones); no cambia su comportamiento
   y los tests existentes deben seguir en verde.
 - **Hoy:** el día en curso solo cuenta si ya está hecho, así que la tasa de «hoy» nunca baja por
