@@ -4,7 +4,7 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 - v1 funcionando: Agregar y Registrar habitos, mostrar un progreso del mismo.
 - Calendario semanal (en `main`): plantilla fija de bloques, categorías creables, franja configurable, redimensionado y resumen de horas.
 - Datos en localStorage.
-- Spec `docs/specs/04-habitos-en-bloques.md` **aprobada** (2026-10-21): asignar hábitos existentes a bloques como referencia visual, visibles solo en el panel del bloque (no en la grilla). El selector agrega de a un hábito; botón "+" en verde (`--color-success`). Plan **aprobado** (calendario pasa a la clave `.v2` con migración y `useSchedule` deja de escribir al montar). Tareas T1–T10 en `docs/specs/04-habitos-en-bloques/tasks.md`, aprobadas, en la rama `feature/habitos-en-bloques`. T1–T3 commiteadas; T4 hecha y verificada en Edge headless (sin commitear); sigue T5.
+- Spec `docs/specs/04-habitos-en-bloques.md` **aprobada** (2026-10-21): asignar hábitos existentes a bloques como referencia visual, visibles solo en el panel del bloque (no en la grilla). El selector agrega de a un hábito; botón "+" en verde (`--color-success`). Plan **aprobado** (calendario pasa a la clave `.v2` con migración y `useSchedule` deja de escribir al montar). Tareas T1–T10 en `docs/specs/04-habitos-en-bloques/tasks.md`, aprobadas, en la rama `feature/habitos-en-bloques`. T1–T4 commiteadas; T5 hecha y verificada en Edge headless (sin commitear); sigue T6.
 - Estadísticas (rama `feature/estadisticas`, **sin commitear ni mergear**): solo hábitos, selector Semana/Mes/90 días, filtro por hábito, matriz de 17 semanas, barras y ranking. Spec `docs/specs/03-estadisticas-semanales.md` (implementada, pendiente de revisión del dueño); plan y tareas en su carpeta.
 ## Decisiones (y por qué)
 - LocalStorage: Momentaneo hasta implementar back.
@@ -20,6 +20,7 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 - Estadísticas lee los datos con `useStatsData` (solo lectura); no usar `useHabits` ahí.
 - `useHabits` solo escribe en localStorage después de la primera acción del usuario (`hasUserChanged`): así un JSON corrupto no se pisa al montar la app (constitución 5). Toda acción que modifique el estado debe pasar por `update`, no por `setState`.
 - Edge headless tiene un ancho mínimo de ~492px: para probar en móvil, usar un iframe de 400px.
+- Calendario guardado en `dashboard.schedule.v2` (bloques con `habitIds`); `v1` solo se lee para migrar y no se toca. Todo bloque nuevo nace con `habitIds: []`.
 - Editar archivos con Edit/Write, no con `cat >>` desde Bash: en este Windows (autocrlf) deja finales de línea mezclados en la copia local.
 - Los CSS globales se importan primero (`main.jsx`); si no, el orden del bundle hace que pisen a los de cada sección.
 - `showModal()` enfoca el primer elemento del <dialog>: para enfocar otro, hacerlo con un ref después de abrirlo.

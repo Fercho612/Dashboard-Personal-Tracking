@@ -14,7 +14,7 @@ Tareas redactadas con asistencia de IA (Claude). Una por vez: tests primero (en 
 - [x] **T4. `useSchedule` escribe solo después de la primera acción del usuario (`hasUserChanged` + `update`, como `useHabits`).** Constitución 5
   - Hecho cuando: al abrir el calendario con un JSON guardado corrupto, el valor guardado no cambia; tras crear un bloque, sí se guarda. Commit aparte `fix:`.
 
-- [ ] **T5. Clave `dashboard.schedule.v2`: carga v2, o migra v1, o arranca con el estado inicial; normaliza `habitIds`; exporta `loadState`.** RNF-1, RNF-2
+- [x] **T5. Clave `dashboard.schedule.v2`: carga v2, o migra v1, o arranca con el estado inicial; normaliza `habitIds`; exporta `loadState`.** RNF-1, RNF-2
   - Hecho cuando: con datos v1 de prueba, el calendario muestra los mismos bloques, y tras un cambio existe la clave v2 con `habitIds` y la v1 sigue igual.
 
 - [ ] **T6. Drawer: sección "Hábitos" con la lista de asignados y botón `×` para quitar; los hábitos llegan desde `SchedulePage` (solo lectura); `habitIds` se guarda con el bloque y se descarta al cancelar.** RF-4, RF-5, RF-10, RF-11, RNF-3

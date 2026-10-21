@@ -11,6 +11,7 @@ import {
   getMinutesByCategory,
   getResizeBounds,
   migrateScheduleFromV1,
+  normalizeHabitIds,
   removeHabitFromBlocks,
   resizeBlock,
   snapToSlot,
@@ -262,6 +263,22 @@ describe('removeHabitFromBlocks', () => {
     const result = removeHabitFromBlocks([block('a', 1, 9, 10, { habitIds: ['h1'] }), untouched], 'h1')
     expect(result[0]).toEqual(block('a', 1, 9, 10, { habitIds: [] }))
     expect(result[1]).toBe(untouched)
+  })
+})
+
+describe('normalizeHabitIds', () => {
+  it('deja intactos los bloques con una lista de hábitos válida', () => {
+    const valid = block('a', 1, 9, 10, { habitIds: ['h1'] })
+    expect(normalizeHabitIds([valid])[0]).toBe(valid)
+  })
+
+  it('agrega una lista vacía si el bloque no tiene habitIds', () => {
+    expect(normalizeHabitIds([block('a', 1, 9, 10)])).toEqual([block('a', 1, 9, 10, { habitIds: [] })])
+  })
+
+  it('reemplaza por una lista vacía un habitIds que no es una lista', () => {
+    const broken = block('a', 1, 9, 10, { habitIds: 'h1' })
+    expect(normalizeHabitIds([broken])[0].habitIds).toEqual([])
   })
 })
 

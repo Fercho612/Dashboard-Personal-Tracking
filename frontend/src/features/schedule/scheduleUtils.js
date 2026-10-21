@@ -173,6 +173,14 @@ export function removeHabitFromBlocks(blocks, habitId) {
 }
 
 /**
+ * Asegura que cada bloque guardado tenga `habitIds` como lista. Un dato viejo, incompleto
+ * o editado a mano no debe romper la app. Los bloques correctos se devuelven tal cual.
+ */
+export function normalizeHabitIds(blocks) {
+  return blocks.map((block) => (Array.isArray(block.habitIds) ? block : { ...block, habitIds: [] }))
+}
+
+/**
  * Migración del formato guardado v1 → v2: en v1 los bloques no tenían hábitos,
  * así que cada uno empieza con `habitIds` vacío. Categorías y ajustes no cambian.
  */

@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
+import { migrateScheduleFromV1, normalizeHabitIds } from './scheduleUtils.js'
 
-const STORAGE_KEY = 'dashboard.schedule.v1'
+// v2: los bloques tienen `habitIds`. La clave v1 se lee solo para migrar y nunca se modifica,
+// así queda como respaldo si algo sale mal (constitución 5).
+const STORAGE_KEY = 'dashboard.schedule.v2'
+const LEGACY_STORAGE_KEY = 'dashboard.schedule.v1'
 
 // Estado inicial la primera vez que se abre el calendario: 4 categorías de ejemplo
 // (editables y borrables como cualquier otra) y la franja 07:00–22:00.
@@ -17,17 +21,31 @@ function createInitialState() {
   }
 }
 
-function loadState() {
+// Convierte el JSON guardado en un estado válido, completando lo que falte.
+function parseSavedState(raw) {
+  const parsed = JSON.parse(raw)
+  const initial = createInitialState()
+  return {
+    blocks: Array.isArray(parsed.blocks) ? parsed.blocks : [],
+    categories: Array.isArray(parsed.categories) ? parsed.categories : initial.categories,
+    settings: parsed.settings ?? initial.settings,
+  }
+}
+
+/**
+ * Orden de lectura: primero v2; si no existe, se migra v1; si tampoco, estado inicial.
+ * Leer no escribe: lo migrado recién se guarda (como v2) tras la primera acción del usuario.
+ */
+export function loadState() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
-    if (!raw) return createInitialState()
-    const parsed = JSON.parse(raw)
-    const initial = createInitialState()
-    return {
-      blocks: Array.isArray(parsed.blocks) ? parsed.blocks : [],
-      categories: Array.isArray(parsed.categories) ? parsed.categories : initial.categories,
-      settings: parsed.settings ?? initial.settings,
+    if (raw) {
+      const saved = parseSavedState(raw)
+      return { ...saved, blocks: normalizeHabitIds(saved.blocks) }
     }
+    const legacyRaw = localStorage.getItem(LEGACY_STORAGE_KEY)
+    if (legacyRaw) return migrateScheduleFromV1(parseSavedState(legacyRaw))
+    return createInitialState()
   } catch {
     return createInitialState()
   }
@@ -59,7 +77,8 @@ export function useSchedule() {
   // --- Bloques ---
 
   function addBlock(data) {
-    const block = { id: crypto.randomUUID(), ...data }
+    // `habitIds: []` por defecto: todo bloque v2 tiene su lista, aunque `data` no la traiga.
+    const block = { id: crypto.randomUUID(), habitIds: [], ...data }
     update((prev) => ({ ...prev, blocks: [...prev.blocks, block] }))
   }
 
