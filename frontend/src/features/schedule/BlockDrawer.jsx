@@ -5,6 +5,7 @@ import {
   DAY_NAMES,
   WEEK_ORDER,
   buildTimeOptions,
+  getAssignedHabits,
   toTimeLabel,
   validateBlock,
 } from './scheduleUtils.js'
@@ -17,7 +18,7 @@ const TITLE_MAX = 60
  * - `draft`: valores iniciales al crear ({ day, start, end }), p. ej. desde un clic en la grilla.
  * Es el mismo <dialog> nativo que el modal de hábitos, con estilo de drawer.
  */
-export default function BlockDrawer({ block, draft, blocks, categories, settings, onSave, onDelete, onClose }) {
+export default function BlockDrawer({ block, draft, blocks, categories, habits, settings, onSave, onDelete, onClose }) {
   const isEditing = block !== null
   const initial = block ?? draft
   const dialogRef = useRef(null)
@@ -28,6 +29,9 @@ export default function BlockDrawer({ block, draft, blocks, categories, settings
   const [start, setStart] = useState(initial.start)
   const [end, setEnd] = useState(initial.end)
   const [categoryId, setCategoryId] = useState(block?.categoryId ?? categories[0]?.id ?? '')
+  // Hábitos asignados: son estado local del panel, así que se guardan junto con el bloque
+  // al pulsar «Guardar» y se descartan al cancelar (RF-5).
+  const [habitIds, setHabitIds] = useState(block?.habitIds ?? [])
   const [isConfirmingDelete, setIsConfirmingDelete] = useState(false)
   const [error, setError] = useState('')
 
@@ -43,6 +47,12 @@ export default function BlockDrawer({ block, draft, blocks, categories, settings
   const startOptions = buildTimeOptions(settings.dayStart, settings.dayEnd - 15)
   const endOptions = buildTimeOptions(settings.dayStart + 15, settings.dayEnd)
 
+  const assignedHabits = getAssignedHabits(habitIds, habits)
+
+  function removeHabit(habitId) {
+    setHabitIds((current) => current.filter((id) => id !== habitId))
+  }
+
   function handleSubmit(event) {
     event.preventDefault()
     const candidate = { id: block?.id, title: title.trim(), day, start, end, categoryId }
@@ -51,7 +61,7 @@ export default function BlockDrawer({ block, draft, blocks, categories, settings
       setError(validationError)
       return
     }
-    onSave({ title: candidate.title, day, start, end, categoryId })
+    onSave({ title: candidate.title, day, start, end, categoryId, habitIds })
   }
 
   return (
@@ -156,6 +166,28 @@ export default function BlockDrawer({ block, draft, blocks, categories, settings
                 </label>
               ))}
             </div>
+          )}
+        </fieldset>
+
+        <fieldset className="field">
+          <legend className="field__label">Hábitos</legend>
+          {assignedHabits.length > 0 && (
+            <ul className="habit-list">
+              {assignedHabits.map((habit) => (
+                <li key={habit.id} className="habit-list__item">
+                  <span className="habit-list__name">{habit.name}</span>
+                  <button
+                    type="button"
+                    className="icon-btn"
+                    aria-label={`Quitar ${habit.name} del bloque`}
+                    title="Quitar del bloque"
+                    onClick={() => removeHabit(habit.id)}
+                  >
+                    ×
+                  </button>
+                </li>
+              ))}
+            </ul>
           )}
         </fieldset>
 
