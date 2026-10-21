@@ -14,7 +14,7 @@ matriz semanal y ver métricas simples de constancia. Solo frontend; los datos v
 ## 2. Alcance
 
 ### Incluido
-1. **Shell de la app**: sidebar con navegación (Hábitos activo; Calendario, Tareas y
+1. **Shell de la app**: sidebar con navegación (Hábitos activo; Calendario y
    Estadísticas visibles pero deshabilitados con el texto "Próximamente") y un header con la fecha de hoy.
 2. **Matriz semanal de consistencia**
    - Filas = hábitos, columnas = días Lunes→Domingo de la semana mostrada.

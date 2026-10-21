@@ -11,7 +11,6 @@ Dashboard personal de productividad para anotar:
 
 - **Hábitos** — registrar y marcar hábitos diarios.
 - **Bloques de horario semanal** — planificar la semana en bloques de tiempo.
-- **Tareas** — lista de tareas con estado y prioridad.
 - **Progreso** — métricas de productividad (gráficos simples de evolución).
 
 > ⚠️ **Este es un proyecto de aprendizaje y portfolio.** El objetivo no es solo "que
@@ -91,7 +90,7 @@ La estructura puede evolucionar, pero cada cambio se propone y justifica primero
 
 ## 6. Flujo de trabajo
 
-1. Trabajar en **ramas cortas** (`feature/habitos`, `fix/endpoint-tareas`, ...).
+1. Trabajar en **ramas cortas** (`feature/habitos`, `fix/endpoint-habitos`, ...).
 2. Un **commit por paso lógico**, idealmente pequeño y comprensible.
 3. Antes de mergear a `main`: frontend compila, backend responde, y el dueño revisó.
 4. El dueño del repo decide qué se mergea. La IA propone, no impone.
