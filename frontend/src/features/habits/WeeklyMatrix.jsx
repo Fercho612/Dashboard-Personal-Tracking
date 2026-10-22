@@ -1,7 +1,9 @@
+import { useEffect, useRef, useState } from 'react'
 import { getIsoWeekNumber, getWeekDays, toDateKey } from '../../lib/dates.js'
 import { getBestStreak, getCurrentStreak, isScheduledOn } from './habitStats.js'
 
 const DAY_INITIALS = ['D', 'L', 'M', 'M', 'J', 'V', 'S'] // índice = getDay()
+const DRAG_THRESHOLD_PX = 5 // menos que esto es un clic, no un arrastre
 
 function CheckIcon() {
   return (
@@ -32,8 +34,96 @@ export default function WeeklyMatrix({
   onNextWeek,
   onGoToToday,
   onEdit,
+  onMove,
 }) {
   const days = getWeekDays(weekStart)
+  const tableRef = useRef(null)
+  // Último movimiento hecho con los botones: al reordenarse las filas, el foco puede
+  // perderse (o el botón quedar deshabilitado); así se lo devolvemos a quien lo usaba.
+  const lastMove = useRef(null)
+
+  useEffect(() => {
+    if (!lastMove.current) return
+    const { id, direction } = lastMove.current
+    lastMove.current = null
+    const row = tableRef.current?.querySelector(`[data-habit-id="${id}"]`)
+    const wanted = row?.querySelector(`[data-move="${direction}"]`)
+    const fallback = row?.querySelector('[data-move]:not(:disabled)')
+    ;(wanted && !wanted.disabled ? wanted : fallback)?.focus()
+  }, [habits])
+
+  function moveWithButton(index, direction) {
+    lastMove.current = { id: habits[index].id, direction }
+    onMove(index, direction === 'up' ? index - 1 : index + 1)
+  }
+
+  // ---------- Arrastre con la agarradera (mouse y dedo, mismos eventos de puntero) ----------
+  // dragRef es la fuente de verdad (los eventos llegan más rápido que los renders);
+  // `drag` solo existe para que React vuelva a pintar la fila arrastrada y el destino.
+  // { from, to, startY, active } · to = null cuando el puntero está fuera de la tabla.
+  const dragRef = useRef(null)
+  const [drag, setDrag] = useState(null)
+
+  function updateDrag(next) {
+    dragRef.current = next
+    setDrag(next)
+  }
+
+  // Posición de destino según dónde está el puntero: la fila cuyo centro queda más cerca.
+  function getDropIndex(x, y) {
+    const table = tableRef.current
+    if (!table) return null
+    const box = table.getBoundingClientRect()
+    if (x < box.left || x > box.right || y < box.top || y > box.bottom) return null
+    const centers = [...table.querySelectorAll('tbody tr')].map((row) => {
+      const rect = row.getBoundingClientRect()
+      return rect.top + rect.height / 2
+    })
+    return centers.reduce(
+      (best, center, index) => (Math.abs(y - center) < Math.abs(y - centers[best]) ? index : best),
+      0,
+    )
+  }
+
+  function startDrag(event, index) {
+    if (event.button !== 0) return
+    event.currentTarget.setPointerCapture(event.pointerId)
+    updateDrag({ from: index, to: index, startY: event.clientY, active: false })
+  }
+
+  function moveDrag(event) {
+    const current = dragRef.current
+    if (!current) return
+    // Un clic o toque sin mover no es un arrastre.
+    if (!current.active && Math.abs(event.clientY - current.startY) < DRAG_THRESHOLD_PX) return
+    updateDrag({ ...current, active: true, to: getDropIndex(event.clientX, event.clientY) })
+  }
+
+  function endDrag() {
+    const current = dragRef.current
+    updateDrag(null)
+    if (current?.active && current.to !== null && current.to !== current.from) {
+      onMove(current.from, current.to)
+    }
+  }
+
+  // Escape cancela el arrastre en curso sin cambiar nada.
+  const isDragging = drag !== null
+  useEffect(() => {
+    if (!isDragging) return
+    const cancelOnEscape = (event) => {
+      if (event.key === 'Escape') updateDrag(null)
+    }
+    window.addEventListener('keydown', cancelOnEscape)
+    return () => window.removeEventListener('keydown', cancelOnEscape)
+  }, [isDragging])
+
+  // Línea de destino: arriba de la fila si se sube, abajo si se baja.
+  function getDropClass(index) {
+    if (!drag?.active || drag.to === null || drag.to === drag.from || index !== drag.to) return ''
+    return drag.to < drag.from ? 'is-drop-above' : 'is-drop-below'
+  }
+
   const todayKey = toDateKey(today)
   const isCurrentWeek = days.some((day) => toDateKey(day) === todayKey)
 
@@ -64,7 +154,10 @@ export default function WeeklyMatrix({
 
       {/* El contenedor con overflow permite scroll horizontal en pantallas chicas */}
       <div className="matrix__scroll">
-        <table className="matrix__table">
+        <table
+          className={`matrix__table${drag?.active ? ' is-reordering' : ''}`}
+          ref={tableRef}
+        >
           <thead>
             <tr>
               <th scope="col" className="matrix__habit-col">Hábito</th>
@@ -81,15 +174,53 @@ export default function WeeklyMatrix({
             </tr>
           </thead>
           <tbody>
-            {habits.map((habit) => {
+            {habits.map((habit, index) => {
               const doneDays = completions[habit.id] ?? []
               return (
-                <tr key={habit.id}>
+                <tr
+                  key={habit.id}
+                  data-habit-id={habit.id}
+                  className={`${drag?.active && drag.from === index ? 'is-dragging ' : ''}${getDropClass(index)}`}
+                >
                   <th scope="row" className="matrix__habit-col">
-                    <button type="button" className="matrix__habit-name" onClick={() => onEdit(habit)}
-                      title="Editar hábito">
-                      {habit.name}
-                    </button>
+                    <div className="matrix__habit">
+                      {/* Solo para mouse y dedo: con teclado se usan los botones Subir/Bajar */}
+                      <span
+                        className="matrix__grip"
+                        aria-hidden="true"
+                        title="Arrastra para reordenar"
+                        onPointerDown={(event) => startDrag(event, index)}
+                        onPointerMove={moveDrag}
+                        onPointerUp={endDrag}
+                        onPointerCancel={() => updateDrag(null)}
+                      >
+                        ⋮⋮
+                      </span>
+                      <button type="button" className="matrix__habit-name" onClick={() => onEdit(habit)}
+                        title="Editar hábito">
+                        {habit.name}
+                      </button>
+                      <button
+                        type="button"
+                        className="matrix__move"
+                        data-move="up"
+                        disabled={index === 0}
+                        aria-label={`Subir ${habit.name}`}
+                        onClick={() => moveWithButton(index, 'up')}
+                      >
+                        ↑
+                      </button>
+                      <button
+                        type="button"
+                        className="matrix__move"
+                        data-move="down"
+                        disabled={index === habits.length - 1}
+                        aria-label={`Bajar ${habit.name}`}
+                        onClick={() => moveWithButton(index, 'down')}
+                      >
+                        ↓
+                      </button>
+                    </div>
                   </th>
                   {days.map((day) => {
                     const dateKey = toDateKey(day)
