@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { moveItem } from './habitStats.js'
 
 const STORAGE_KEY = 'dashboard.habits.v1'
 const EMPTY_STATE = { habits: [], completions: {} }
@@ -69,6 +70,22 @@ export function useHabits() {
     })
   }
 
+  // Mueve un hábito de la posición `from` a `to`. El orden de la lista guardada es el
+  // orden que se ve, así que no hay campo nuevo. Se guarda ANTES de actualizar el estado:
+  // si falla la escritura, el estado queda como estaba y se devuelve false para avisar.
+  function reorderHabits(from, to) {
+    const habits = moveItem(state.habits, from, to)
+    if (habits === state.habits) return true // nada que mover
+    const next = { ...state, habits }
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
+    } catch {
+      return false
+    }
+    update(() => next)
+    return true
+  }
+
   // Marca el día si no estaba hecho, o lo desmarca si ya estaba.
   function toggleCompletion(habitId, dateKey) {
     update((prev) => {
@@ -86,6 +103,7 @@ export function useHabits() {
     addHabit,
     updateHabit,
     deleteHabit,
+    reorderHabits,
     toggleCompletion,
   }
 }

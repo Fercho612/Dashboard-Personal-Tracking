@@ -16,6 +16,18 @@ export function isScheduledOn(habit, date) {
   return isScheduledOnWeekday(habit, date.getDay())
 }
 
+// Copia de la lista con el elemento de `from` puesto en `to`; los demás conservan su
+// orden relativo. Si no hay nada que mover (mismo lugar o índice fuera de rango),
+// devuelve la misma lista.
+export function moveItem(list, from, to) {
+  const inRange = (index) => Number.isInteger(index) && index >= 0 && index < list.length
+  if (from === to || !inRange(from) || !inRange(to)) return list
+  const next = [...list]
+  const [item] = next.splice(from, 1)
+  next.splice(to, 0, item)
+  return next
+}
+
 function isDone(completions, habitId, dateKey) {
   return (completions[habitId] ?? []).includes(dateKey)
 }

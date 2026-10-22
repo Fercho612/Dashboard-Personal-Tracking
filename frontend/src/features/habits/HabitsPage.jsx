@@ -8,7 +8,8 @@ import TodaySummary from './TodaySummary.jsx'
 import './habits.css'
 
 export default function HabitsPage() {
-  const { habits, completions, addHabit, updateHabit, deleteHabit, toggleCompletion } = useHabits()
+  const { habits, completions, addHabit, updateHabit, deleteHabit, reorderHabits, toggleCompletion } =
+    useHabits()
 
   const today = new Date()
   // Estado local de la vista: qué semana se está mirando (su lunes).
@@ -16,6 +17,10 @@ export default function HabitsPage() {
   // null = modal cerrado · { habit: null } = crear · { habit, blockCount } = editar
   // blockCount: en cuántos bloques del calendario está el hábito (se avisa al borrarlo).
   const [modal, setModal] = useState(null)
+
+  // Texto para el lector de pantalla tras mover un hábito, y aviso si no se pudo guardar.
+  const [announcement, setAnnouncement] = useState('')
+  const [reorderFailed, setReorderFailed] = useState(false)
 
   const openCreateModal = () => setModal({ habit: null })
   const closeModal = () => setModal(null)
@@ -33,6 +38,12 @@ export default function HabitsPage() {
     deleteHabit(id)
     removeHabitFromSavedSchedule(id) // también sale de los bloques del calendario; los bloques no se tocan
     closeModal()
+  }
+
+  function handleMove(from, to) {
+    const saved = reorderHabits(from, to)
+    setReorderFailed(!saved)
+    setAnnouncement(saved ? `${habits[from].name}, posición ${to + 1} de ${habits.length}` : '')
   }
 
   return (
@@ -64,6 +75,12 @@ export default function HabitsPage() {
         // <> … </> es un Fragment: agrupa elementos sin agregar un <div> extra al DOM.
         <>
           <TodaySummary habits={habits} completions={completions} today={today} />
+          <p className="visually-hidden" aria-live="polite">{announcement}</p>
+          {reorderFailed && (
+            <p className="form-error reorder-error" role="alert">
+              No se pudo guardar el nuevo orden. Inténtalo de nuevo.
+            </p>
+          )}
           <WeeklyMatrix
             habits={habits}
             completions={completions}
@@ -73,7 +90,8 @@ export default function HabitsPage() {
             onPrevWeek={() => setWeekStart((current) => addDays(current, -7))}
             onNextWeek={() => setWeekStart((current) => addDays(current, 7))}
             onGoToToday={() => setWeekStart(startOfWeek(today))}
-            onEdit={(habit) => setModal({ habit, blockCount: countSavedBlocksWithHabit(habit.id) })}
+            onMove={handleMove}
+            onEdit={(habit) => setModal({ habit })}
           />
         </>
       )}

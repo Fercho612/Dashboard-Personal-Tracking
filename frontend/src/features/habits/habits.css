@@ -64,6 +64,91 @@
   text-align: left;
 }
 
+.matrix__habit {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.matrix__habit .matrix__habit-name {
+  flex: 1;
+}
+
+/* Agarradera de arrastre: touch-action none hace que el dedo arrastre en vez de hacer scroll */
+.matrix__grip {
+  flex-shrink: 0;
+  padding: var(--space-xs) 2px;
+  color: var(--text-medium);
+  cursor: grab;
+  font-size: 0.875rem;
+  letter-spacing: -2px;
+  line-height: 1;
+  touch-action: none;
+  user-select: none;
+}
+
+.matrix__grip:hover {
+  color: var(--text-high);
+}
+
+.matrix__table.is-reordering {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.matrix__table tr.is-dragging {
+  opacity: 0.45;
+}
+
+/* Línea que marca dónde quedaría el hábito al soltarlo */
+.matrix__table tr.is-drop-above > * {
+  box-shadow: 0 -3px 0 0 var(--color-primary);
+}
+
+.matrix__table tr.is-drop-below > * {
+  box-shadow: 0 3px 0 0 var(--color-primary);
+}
+
+/* Botones de subir/bajar: alternativa al arrastre, sirven con teclado y con el dedo */
+.matrix__move {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 0;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-medium);
+  line-height: 1;
+}
+
+.matrix__move:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.09);
+  color: var(--text-high);
+}
+
+.matrix__move:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Solo para lectores de pantalla (anuncio de la nueva posición) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.reorder-error {
+  margin: 0 0 var(--space-sm);
+}
+
 .matrix__habit-name {
   display: flex;
   align-items: center;

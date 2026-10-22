@@ -6,7 +6,7 @@ import {
   getGlobalStreak,
   getTodayProgress,
   isScheduledOn,
-  isScheduledOnWeekday,
+  moveItem,
 } from './habitStats.js'
 import { fromDateKey } from '../../lib/dates.js'
 
@@ -42,18 +42,40 @@ describe('isScheduledOn', () => {
   })
 })
 
-describe('isScheduledOnWeekday', () => {
-  it('un hábito diario toca cualquier día de la semana', () => {
-    expect(isScheduledOnWeekday(dailyHabit(), 0)).toBe(true) // domingo
-    expect(isScheduledOnWeekday(dailyHabit(), 2)).toBe(true) // martes
+describe('moveItem', () => {
+  it('mueve un elemento hacia el principio sin alterar el orden de los demás', () => {
+    expect(moveItem(['A', 'B', 'C'], 2, 0)).toEqual(['C', 'A', 'B'])
   })
 
-  it('un hábito semanal toca en un día incluido', () => {
-    expect(isScheduledOnWeekday(mwfHabit(), 1)).toBe(true) // lunes
+  it('mueve un elemento hacia el final sin alterar el orden de los demás', () => {
+    expect(moveItem(['A', 'B', 'C'], 0, 2)).toEqual(['B', 'C', 'A'])
   })
 
-  it('un hábito semanal no toca en un día no incluido', () => {
-    expect(isScheduledOnWeekday(mwfHabit(), 2)).toBe(false) // martes
+  it('mueve un elemento una posición', () => {
+    expect(moveItem(['A', 'B', 'C'], 1, 0)).toEqual(['B', 'A', 'C'])
+  })
+
+  it('devuelve la misma lista si origen y destino coinciden', () => {
+    const list = ['A', 'B', 'C']
+    expect(moveItem(list, 1, 1)).toBe(list)
+  })
+
+  it('devuelve la misma lista si algún índice está fuera de rango', () => {
+    const list = ['A', 'B', 'C']
+    expect(moveItem(list, -1, 1)).toBe(list)
+    expect(moveItem(list, 0, 3)).toBe(list)
+    expect(moveItem(list, 5, 0)).toBe(list)
+  })
+
+  it('no modifica la lista original', () => {
+    const list = ['A', 'B', 'C']
+    moveItem(list, 2, 0)
+    expect(list).toEqual(['A', 'B', 'C'])
+  })
+
+  it('con un solo elemento no cambia nada', () => {
+    const list = ['A']
+    expect(moveItem(list, 0, 0)).toBe(list)
   })
 })
 

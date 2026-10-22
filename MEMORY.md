@@ -6,6 +6,7 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 - Datos en localStorage.
 - Hábitos en bloques (rama `feature/habitos-en-bloques`, **sin mergear**): spec 04 `docs/specs/04-habitos-en-bloques.md` implementada (T1–T10 hechas, un commit por tarea), pendiente de revisión del dueño. Los hábitos se asignan solo desde el panel del bloque (botón verde «+», de a uno); la grilla no cambia; es solo referencia visual.
 - Estadísticas (rama `feature/estadisticas`, **sin commitear ni mergear**): solo hábitos, selector Semana/Mes/90 días, filtro por hábito, matriz de 17 semanas, barras y ranking. Spec `docs/specs/03-estadisticas-semanales.md` (implementada, pendiente de revisión del dueño); plan y tareas en su carpeta.
+- Reordenar hábitos (spec 05 `docs/specs/05-reordenar-habitos.md`, **implementada** T1–T5 en la rama `feature/habitos`, **sin mergear**; pendiente de revisión del dueño): agarradera `⋮⋮` (mouse/dedo) + botones Subir/Bajar (teclado) en la matriz; el orden es el del arreglo `habits` guardado (sin migración), así que también lo siguen el filtro de Estadísticas y, cuando se junte con `feature/habitos-en-bloques`, las opciones del «+» del bloque; el ranking sigue por desempeño. El chequeo del panel del bloque (RF-12) se hizo sobre `habitos-en-bloques`, no en esta rama.
 ## Decisiones (y por qué)
 - LocalStorage: Momentaneo hasta implementar back.
 - Días pasados se pueden marcar (también antes de crear el hábito); el futuro no. Un registro retroactivo adelanta el inicio del hábito en las métricas.
@@ -19,6 +20,7 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 - Fechas siempre en hora local (`lib/dates.js`); nunca `toISOString()`, porque corre el día por UTC.
 - Estadísticas lee los datos con `useStatsData` (solo lectura); no usar `useHabits` ahí.
 - `useHabits` solo escribe en localStorage después de la primera acción del usuario (`hasUserChanged`): así un JSON corrupto no se pisa al montar la app (constitución 5). Toda acción que modifique el estado debe pasar por `update`, no por `setState`.
+- Pruebas táctiles/arrastre en Edge headless: eventos con `Input.dispatchMouseEvent`/`dispatchTouchEvent`; el elemento tiene que estar dentro de la pantalla (hacer `scrollIntoView` antes), si no el toque cae en la página y la desplaza.
 - Edge headless tiene un ancho mínimo de ~492px: para probar en móvil, usar un iframe de 400px.
 - Calendario guardado en `dashboard.schedule.v2` (bloques con `habitIds`); `v1` solo se lee para migrar y no se toca. Todo bloque nuevo nace con `habitIds: []`.
 - Editar archivos con Edit/Write, no con `cat >>` desde Bash: en este Windows (autocrlf) deja finales de línea mezclados en la copia local.
