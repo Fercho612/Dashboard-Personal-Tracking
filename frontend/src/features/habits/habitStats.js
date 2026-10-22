@@ -3,10 +3,17 @@ import { addDays, fromDateKey, toDateKey } from '../../lib/dates.js'
 // Funciones PURAS de cálculo: reciben datos y devuelven un resultado, sin tocar
 // estado ni localStorage. Eso las hace fáciles de testear y de reutilizar en el backend.
 
+// ¿Le toca este hábito en ese día de la semana (0 = domingo … 6 = sábado)?
+// Es la regla única de "le toca": la usan las métricas y también el calendario,
+// que trabaja con días de la semana y no con fechas.
+export function isScheduledOnWeekday(habit, weekday) {
+  if (habit.frequency.type === 'daily') return true
+  return habit.frequency.days.includes(weekday)
+}
+
 // ¿Le toca este hábito en la fecha dada según su frecuencia?
 export function isScheduledOn(habit, date) {
-  if (habit.frequency.type === 'daily') return true
-  return habit.frequency.days.includes(date.getDay())
+  return isScheduledOnWeekday(habit, date.getDay())
 }
 
 // Copia de la lista con el elemento de `from` puesto en `to`; los demás conservan su

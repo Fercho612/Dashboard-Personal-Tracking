@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { addDays, startOfWeek, toDateKey } from '../../lib/dates.js'
+import { countSavedBlocksWithHabit, removeHabitFromSavedSchedule } from '../schedule/useSchedule.js'
 import { useHabits } from './useHabits.js'
 import WeeklyMatrix from './WeeklyMatrix.jsx'
 import HabitFormModal from './HabitFormModal.jsx'
@@ -13,7 +14,8 @@ export default function HabitsPage() {
   const today = new Date()
   // Estado local de la vista: qué semana se está mirando (su lunes).
   const [weekStart, setWeekStart] = useState(() => startOfWeek(today))
-  // null = modal cerrado · { habit: null } = crear · { habit } = editar
+  // null = modal cerrado · { habit: null } = crear · { habit, blockCount } = editar
+  // blockCount: en cuántos bloques del calendario está el hábito (se avisa al borrarlo).
   const [modal, setModal] = useState(null)
 
   // Texto para el lector de pantalla tras mover un hábito, y aviso si no se pudo guardar.
@@ -34,6 +36,7 @@ export default function HabitsPage() {
 
   function handleDelete(id) {
     deleteHabit(id)
+    removeHabitFromSavedSchedule(id) // también sale de los bloques del calendario; los bloques no se tocan
     closeModal()
   }
 
@@ -97,6 +100,7 @@ export default function HabitsPage() {
       {modal && (
         <HabitFormModal
           habit={modal.habit}
+          blockCount={modal.blockCount ?? 0}
           onSave={handleSave}
           onDelete={handleDelete}
           onClose={closeModal}

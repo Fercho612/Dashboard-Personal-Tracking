@@ -23,7 +23,7 @@ export default function App() {
           <span className="capitalize">{todayLabel}</span>
         </header>
         {activeSection === 'habits' && <HabitsPage />}
-        {activeSection === 'calendar' && <SchedulePage />}
+        {activeSection === 'calendar' && <SchedulePage onNavigate={setActiveSection} />}
         {activeSection === 'stats' && <StatsPage onNavigate={setActiveSection} />}
       </main>
     </div>
