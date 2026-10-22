@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { loadState as loadHabitsState } from '../habits/useHabits.js'
 import { useSchedule } from './useSchedule.js'
 import { MIN_DURATION, getResizeBounds, toTimeLabel } from './scheduleUtils.js'
 import WeekGrid from './WeekGrid.jsx'
@@ -11,7 +12,7 @@ import './schedule.css'
 
 const DEFAULT_DURATION = 60
 
-export default function SchedulePage() {
+export default function SchedulePage({ onNavigate }) {
   const {
     blocks,
     categories,
@@ -24,6 +25,10 @@ export default function SchedulePage() {
     deleteCategory,
     updateSettings,
   } = useSchedule()
+
+  // Hábitos en SOLO LECTURA (como Estadísticas): el calendario nunca modifica los hábitos.
+  // Se leen una vez al abrir la sección, porque Hábitos y Calendario no están montados a la vez.
+  const [{ habits }] = useState(loadHabitsState)
 
   // null = cerrado · { block } = editar · { block: null, draft } = crear
   const [drawer, setDrawer] = useState(null)
@@ -122,10 +127,13 @@ export default function SchedulePage() {
           draft={drawer.draft}
           blocks={blocks}
           categories={categories}
+          habits={habits}
           settings={settings}
           onSave={handleSave}
           onDelete={handleDelete}
           onClose={() => setDrawer(null)}
+          // Navegar desmonta esta página y con ella el panel: lo escrito sin guardar se descarta.
+          onGoToHabits={() => onNavigate('habits')}
         />
       )}
 

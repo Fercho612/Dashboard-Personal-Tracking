@@ -136,3 +136,57 @@ export function getMinutesByCategory(blocks, categories) {
   const total = blocks.reduce((sum, block) => sum + (block.end - block.start), 0)
   return { total, byCategory }
 }
+
+// --- Hábitos asignados a un bloque (spec 04) ---
+
+/**
+ * Hábitos asignados a un bloque, en el orden en que se asignaron.
+ * Si un id ya no corresponde a ningún hábito (se borró), se ignora: no se muestra
+ * y no rompe nada.
+ */
+export function getAssignedHabits(habitIds, habits) {
+  return habitIds
+    .map((habitId) => habits.find((habit) => habit.id === habitId))
+    .filter((habit) => habit !== undefined)
+}
+
+// Hábitos que todavía se pueden agregar al bloque, en el orden de la lista de hábitos.
+export function getAssignableHabits(habitIds, habits) {
+  return habits.filter((habit) => !habitIds.includes(habit.id))
+}
+
+// En cuántos bloques está asignado un hábito (para avisar antes de borrarlo).
+export function countBlocksWithHabit(blocks, habitId) {
+  return blocks.filter((block) => block.habitIds.includes(habitId)).length
+}
+
+/**
+ * Quita un hábito de todos los bloques. Devuelve un array nuevo (inmutabilidad):
+ * los bloques que no lo tenían se devuelven tal cual, sin copiarlos.
+ */
+export function removeHabitFromBlocks(blocks, habitId) {
+  return blocks.map((block) =>
+    block.habitIds.includes(habitId)
+      ? { ...block, habitIds: block.habitIds.filter((id) => id !== habitId) }
+      : block,
+  )
+}
+
+/**
+ * Asegura que cada bloque guardado tenga `habitIds` como lista. Un dato viejo, incompleto
+ * o editado a mano no debe romper la app. Los bloques correctos se devuelven tal cual.
+ */
+export function normalizeHabitIds(blocks) {
+  return blocks.map((block) => (Array.isArray(block.habitIds) ? block : { ...block, habitIds: [] }))
+}
+
+/**
+ * Migración del formato guardado v1 → v2: en v1 los bloques no tenían hábitos,
+ * así que cada uno empieza con `habitIds` vacío. Categorías y ajustes no cambian.
+ */
+export function migrateScheduleFromV1(saved) {
+  return {
+    ...saved,
+    blocks: saved.blocks.map((block) => ({ ...block, habitIds: [] })),
+  }
+}

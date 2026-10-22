@@ -4,9 +4,15 @@ import {
   buildTimeOptions,
   findOverlap,
   formatDuration,
+  getAssignableHabits,
+  getAssignedHabits,
+  countBlocksWithHabit,
   getBlocksOutsideRange,
   getMinutesByCategory,
   getResizeBounds,
+  migrateScheduleFromV1,
+  normalizeHabitIds,
+  removeHabitFromBlocks,
   resizeBlock,
   snapToSlot,
   toTimeLabel,
@@ -180,5 +186,113 @@ describe('categorías', () => {
     const { total, byCategory } = getMinutesByCategory(blocks, categories)
     expect(total).toBe(210)
     expect(byCategory.map((item) => item.minutes)).toEqual([150, 60])
+  })
+})
+
+// Hábitos de ejemplo, en el orden en que existen en la sección Hábitos
+const HABITS = [
+  { id: 'h1', name: 'Meditar' },
+  { id: 'h2', name: 'Leer' },
+  { id: 'h3', name: 'Gym' },
+]
+
+describe('getAssignedHabits', () => {
+  it('devuelve los hábitos en el orden en que se asignaron', () => {
+    expect(getAssignedHabits(['h3', 'h1'], HABITS).map((habit) => habit.name)).toEqual(['Gym', 'Meditar'])
+  })
+
+  it('ignora los ids de hábitos que ya no existen', () => {
+    expect(getAssignedHabits(['borrado', 'h2'], HABITS).map((habit) => habit.id)).toEqual(['h2'])
+  })
+
+  it('sin hábitos asignados devuelve una lista vacía', () => {
+    expect(getAssignedHabits([], HABITS)).toEqual([])
+  })
+})
+
+describe('getAssignableHabits', () => {
+  it('devuelve los no asignados, en el orden de la lista de hábitos', () => {
+    expect(getAssignableHabits(['h2'], HABITS).map((habit) => habit.id)).toEqual(['h1', 'h3'])
+  })
+
+  it('sin hábitos asignados se pueden agregar todos', () => {
+    expect(getAssignableHabits([], HABITS)).toEqual(HABITS)
+  })
+
+  it('con todos asignados no queda ninguno para agregar', () => {
+    expect(getAssignableHabits(['h1', 'h2', 'h3'], HABITS)).toEqual([])
+  })
+
+  it('sin hábitos creados no hay nada para agregar', () => {
+    expect(getAssignableHabits([], [])).toEqual([])
+  })
+})
+
+describe('countBlocksWithHabit', () => {
+  const blocks = [
+    block('a', 1, 9, 10, { habitIds: ['h1', 'h2'] }),
+    block('b', 2, 9, 10, { habitIds: ['h1'] }),
+    block('c', 3, 9, 10, { habitIds: [] }),
+  ]
+
+  it('cuenta 0 si el hábito no está en ningún bloque', () => {
+    expect(countBlocksWithHabit(blocks, 'h3')).toBe(0)
+  })
+
+  it('cuenta 1 si el hábito está en un solo bloque', () => {
+    expect(countBlocksWithHabit(blocks, 'h2')).toBe(1)
+  })
+
+  it('cuenta todos los bloques que tienen el hábito', () => {
+    expect(countBlocksWithHabit(blocks, 'h1')).toBe(2)
+  })
+})
+
+describe('removeHabitFromBlocks', () => {
+  it('quita el hábito de todos los bloques y deja los demás hábitos', () => {
+    const blocks = [
+      block('a', 1, 9, 10, { habitIds: ['h1', 'h2'] }),
+      block('b', 2, 9, 10, { habitIds: ['h1'] }),
+    ]
+    const result = removeHabitFromBlocks(blocks, 'h1')
+    expect(result.map((item) => item.habitIds)).toEqual([['h2'], []])
+  })
+
+  it('no cambia los demás campos ni los bloques que no lo tienen', () => {
+    const untouched = block('b', 2, 9, 10, { habitIds: ['h2'] })
+    const result = removeHabitFromBlocks([block('a', 1, 9, 10, { habitIds: ['h1'] }), untouched], 'h1')
+    expect(result[0]).toEqual(block('a', 1, 9, 10, { habitIds: [] }))
+    expect(result[1]).toBe(untouched)
+  })
+})
+
+describe('normalizeHabitIds', () => {
+  it('deja intactos los bloques con una lista de hábitos válida', () => {
+    const valid = block('a', 1, 9, 10, { habitIds: ['h1'] })
+    expect(normalizeHabitIds([valid])[0]).toBe(valid)
+  })
+
+  it('agrega una lista vacía si el bloque no tiene habitIds', () => {
+    expect(normalizeHabitIds([block('a', 1, 9, 10)])).toEqual([block('a', 1, 9, 10, { habitIds: [] })])
+  })
+
+  it('reemplaza por una lista vacía un habitIds que no es una lista', () => {
+    const broken = block('a', 1, 9, 10, { habitIds: 'h1' })
+    expect(normalizeHabitIds([broken])[0].habitIds).toEqual([])
+  })
+})
+
+describe('migrateScheduleFromV1', () => {
+  it('agrega habitIds vacío a cada bloque sin perder categorías ni ajustes', () => {
+    const v1 = {
+      blocks: [block('a', 1, 9, 10)],
+      categories: [{ id: 'c1', name: 'Salud', color: 'emerald' }],
+      settings: SETTINGS,
+    }
+    expect(migrateScheduleFromV1(v1)).toEqual({
+      blocks: [block('a', 1, 9, 10, { habitIds: [] })],
+      categories: v1.categories,
+      settings: SETTINGS,
+    })
   })
 })

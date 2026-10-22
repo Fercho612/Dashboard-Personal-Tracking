@@ -6,6 +6,7 @@ import {
   getGlobalStreak,
   getTodayProgress,
   isScheduledOn,
+  isScheduledOnWeekday,
 } from './habitStats.js'
 import { fromDateKey } from '../../lib/dates.js'
 
@@ -38,6 +39,21 @@ describe('isScheduledOn', () => {
   it('un hábito semanal solo toca en sus días', () => {
     expect(isScheduledOn(mwfHabit(), fromDateKey('2026-10-19'))).toBe(true) // lunes
     expect(isScheduledOn(mwfHabit(), fromDateKey('2026-10-20'))).toBe(false) // martes
+  })
+})
+
+describe('isScheduledOnWeekday', () => {
+  it('un hábito diario toca cualquier día de la semana', () => {
+    expect(isScheduledOnWeekday(dailyHabit(), 0)).toBe(true) // domingo
+    expect(isScheduledOnWeekday(dailyHabit(), 2)).toBe(true) // martes
+  })
+
+  it('un hábito semanal toca en un día incluido', () => {
+    expect(isScheduledOnWeekday(mwfHabit(), 1)).toBe(true) // lunes
+  })
+
+  it('un hábito semanal no toca en un día no incluido', () => {
+    expect(isScheduledOnWeekday(mwfHabit(), 2)).toBe(false) // martes
   })
 })
 
